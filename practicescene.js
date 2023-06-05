@@ -18,7 +18,7 @@ var config = {
    this.sys.install('DialogModalPlugin');
 console.log(this.sys.dialogModal);
 this.sys.dialogModal.init();
-this.sys.dialogModal.setText('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', true);
+this.sys.dialogModal.setText('Greetings, traveler!', true);
  }
 
  
