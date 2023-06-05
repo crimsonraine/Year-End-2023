@@ -32,7 +32,7 @@ let keyW;
 var map;    
 function preload () {
     this.load.image('place', 'sprites/placeholder.png');
-    this.load.image('background', 'back.jpg');
+    this.load.image('background', 'background1.jpg');
 }
 
 function create () {
