@@ -1,3 +1,5 @@
+//const { World } = require("matter");
+
 var config = { // defines the config for the game 
     type: Phaser.AUTO, // tries WebGL, falls back to canvas otherwise
     width: 1200, // centering
@@ -20,22 +22,21 @@ var config = { // defines the config for the game
         update: update
     }
 };
+var game = new Phaser.Game(config);
 var cursors;
 var jumpButton;
 let keyA;
 let keyS;
 let keyD;
 let keyW;
-var game = new Phaser.Game(config);
-
-    
+var map;    
 function preload () {
-    this.load.setBaseURL('https://labs.phaser.io');
-
     this.load.image('place', 'sprites/placeholder.png');
+    this.load.image('background', 'back.jpg');
 }
 
 function create () {
+    this.add.image(600, 330, 'background').setScale(1.45).setOrigin(.5, .5);
     this.place = this.physics.add.image(100, 550, 'place');
     this.place.getBounds();
     this.place.body.setSize(this.place.body.height - 19, this.place.body.width, true);
@@ -48,6 +49,10 @@ function create () {
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 
+    this.cameras.main.setBounds(0, 0, screen.width, screen.height);
+    
+    this.cameras.main.startFollow(this.place);
+    
 }
 
 function update() {
@@ -70,6 +75,8 @@ function update() {
         this.place.body.setVelocityX(0);
         this.place.body.setVelocityY(0);
     }
+
+    //camera.startFollow(this.place);
 }
 
 // export default TitleScene
