@@ -1,19 +1,16 @@
 class TitleScene extends Phaser.Scene
 {
-    constructor ()
-    {
-        super();
+    constructor () {
+        super({ key: 'TitleScene' });
     }
 
-    preload ()
-    {
+    preload () {
         this.load.setBaseURL('https://labs.phaser.io');
-
         this.load.image('sky', 'assets/skies/space3.png');
     }
 
-    create ()
-    {
+    create () {
+        this.scene.start('FightScene');
     }
 }
 
