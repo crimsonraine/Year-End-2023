@@ -1,5 +1,5 @@
 import TitleScene from './title.js'
-import Level1Scene from './level1.js'
+import Level1Scene from './level1scene.js'
 import FightScene from './fight.js'
 
 const config = {
@@ -11,7 +11,7 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 200 },
+            gravity: { y: 0 },
             debug: false
         }
     },

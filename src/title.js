@@ -5,8 +5,7 @@ class TitleScene extends Phaser.Scene
     }
 
     preload () {
-        this.load.setBaseURL('https://labs.phaser.io');
-        this.load.image('sky', 'assets/skies/space3.png');
+        this.load.image('bg', 'assets/skies/space3.png');
     }
 
     create () {

@@ -19,6 +19,8 @@ var config = {
 console.log(this.sys.dialogModal);
 this.sys.dialogModal.init();
 this.sys.dialogModal.setText('Greetings, traveler!', true);
+// this.sys.dialogModal.wait(9);
+// this.sys.dialogModal.setText('boop boop beep', true);
  }
 
  
