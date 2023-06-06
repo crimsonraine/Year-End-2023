@@ -1,5 +1,5 @@
 import TitleScene from './title.js'
-// import LevelScene from '.level.js'
+import Level1Scene from './level1.js'
 import FightScene from './fight.js'
 
 const config = {
@@ -7,10 +7,12 @@ const config = {
     width: 1200,
     height: 660,
     pixelArt: true,
+    parent: 'game',
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 200 }
+            gravity: { y: 200 },
+            debug: false
         }
     },
     scale: {
@@ -20,6 +22,7 @@ const config = {
     },
     scene: [
         TitleScene,
+        Level1Scene,
         FightScene
     ]
 };
