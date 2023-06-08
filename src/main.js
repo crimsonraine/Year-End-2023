@@ -12,7 +12,7 @@ const config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },
-            debug: false
+            debug: true
         }
     },
     scale: {
@@ -24,7 +24,10 @@ const config = {
         TitleScene,
         Level1Scene,
         FightScene
-    ]
+    ],
+    audio: {
+        disableWebAudio: true
+    }
 };
 
 const game = new Phaser.Game(config);
