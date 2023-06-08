@@ -5,11 +5,11 @@ class TitleScene extends Phaser.Scene
     }
 
     preload () {
-        this.load.image('bg', 'assets/skies/space3.png');
+        this.load.image('bg', 'assets/images/space3.png');
     }
 
     create () {
-        this.scene.start('Level1Scene');
+        this.add.image(600, 330, 'back').setScale(1.45).setOrigin(.5, .5);
     }
 }
 
