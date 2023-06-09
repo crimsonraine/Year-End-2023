@@ -4,8 +4,8 @@ class Level1Scene extends Phaser.Scene {
     }
 
     preload () {
-        this.load.image('place', 'sprites/placeholder.png');
-        this.load.image('background', 'images/background2.jpg');
+        this.load.image('place', 'assets/sprites/placeholder.png');
+        this.load.image('background', 'assets/images/background2.jpg');
     }
     
     create () {

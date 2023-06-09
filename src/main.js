@@ -1,4 +1,5 @@
 import TitleScene from './title.js'
+import SelectionScene from './selectionscene.js'
 import Level1Scene from './level1scene.js'
 import FightScene from './fight.js'
 
@@ -6,6 +7,7 @@ const config = {
     type: Phaser.AUTO,
     width: 1200,
     height: 660,
+    backgroundColor: '#000000',
     pixelArt: true,
     parent: 'game',
     physics: {
@@ -22,6 +24,7 @@ const config = {
     },
     scene: [
         TitleScene,
+        SelectionScene,
         Level1Scene,
         FightScene
     ],
