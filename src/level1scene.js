@@ -4,28 +4,39 @@ class Level1Scene extends Phaser.Scene {
     }
 
     preload () {
-        this.load.image('place', 'assets/sprites/placeholder.png');
+        this.load.image('char', 'assets/sprites/placeholder.png');
         this.load.image('background', 'assets/images/background2.jpg');
+        this.moveCam = false;
     }
     
     create () {
         this.add.image(600, 330, 'background').setScale(1.50).setOrigin(.5, .5);
-        this.place = this.physics.add.image(100, 550, 'place');
+
+        this.cameras.main.setBounds(0, 0, 100 * 4, 550 * 4);
+        this.cameras.main.centerOn(600, 330);
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.place = this.physics.add.image(100, 550, 'char');
         this.place.getBounds();
         this.place.body.setSize(this.place.body.height - 19, this.place.body.width, true);
         this.place.setCollideWorldBounds(true);
-    
-        this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.cameras.main.startFollow(this.place, true);
+        this.cameras.main.setDeadzone(400, 200);
+        this.cameras.main.setZoom(2);
+
+        if (this.cameras.main.deadzone)
+        {
+            const graphics = this.add.graphics().setScrollFactor(0);
+            graphics.lineStyle(2, 0x00ff00, 1);
+            graphics.strokeRect(200, 200, this.cameras.main.deadzone.width, this.cameras.main.deadzone.height);
+        }
+        
         this.refreshButton = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-    
-        this.cameras.main.setBounds(0, 0, 810, 718);
-        
-        this.cameras.main.startFollow(this.place);
-        
     }
     
     update () {
@@ -48,8 +59,6 @@ class Level1Scene extends Phaser.Scene {
             this.place.body.setVelocityX(0);
             this.place.body.setVelocityY(0);
         }
-    
-        //camera.startFollow(this.place);
     }
 } 
 
