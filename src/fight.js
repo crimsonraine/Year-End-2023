@@ -6,7 +6,7 @@ class FightScene extends Phaser.Scene {
     preload () {
         this.load.image('chibi', 'assets/sprites/placeholder.png');
         this.load.image('troll', 'assets/sprites/placeholder2.png');
-        this.load.image('background', 'assets/images/battle_background1.webp');
+        this.load.image('background', 'assets/images/battle_background1.png');
         this.load.image('textbox', 'assets/images/textbox.png');
     }
 
