@@ -9,7 +9,7 @@ class Level1Scene extends Phaser.Scene {
     }
     
     create () {
-        this.add.image(600, 330, 'background').setScale(1.45).setOrigin(.5, .5);
+        this.add.image(600, 330, 'background').setScale(1.50).setOrigin(.5, .5);
         this.place = this.physics.add.image(100, 550, 'place');
         this.place.getBounds();
         this.place.body.setSize(this.place.body.height - 19, this.place.body.width, true);
@@ -22,7 +22,7 @@ class Level1Scene extends Phaser.Scene {
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     
-        this.cameras.main.setBounds(0, 0, screen.width, screen.height);
+        this.cameras.main.setBounds(0, 0, 810, 718);
         
         this.cameras.main.startFollow(this.place);
         
