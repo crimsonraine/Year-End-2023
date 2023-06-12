@@ -1,17 +1,18 @@
-var config = {
+const config = {
   type: Phaser.AUTO,
-  parent: 'phaser-example',
-  width: 800,
-  height: 600,
+  // parent: 'phaser-example',
+  parent: 'game',
+  width: 1200,
+  height: 660,
   scene: {
     preload: preload,
     create: create
   }
 };
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 const list = ["Greetings, traveler?", "What brings you here?", "Are you lost?", "hello!"]
 function preload () {
-  this.load.plugin('DialogModalPlugin', './dialog_plugin.js');
+  this.load.plugin('DialogModalPlugin', '/src/dialog_plugin.js');
 }
 function create () {
   this.sys.install('DialogModalPlugin');
