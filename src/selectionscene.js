@@ -2,6 +2,7 @@ class SelectionScene extends Phaser.Scene
 {
     constructor () {
         super({ key: 'SelectionScene' });
+        
     }
 
     preload () {
@@ -10,6 +11,7 @@ class SelectionScene extends Phaser.Scene
         this.load.image('sound_on', 'assets/menu/sound_on.png');
         this.load.image('sound_off', 'assets/menu/sound_off.png');
         this.load.audio('bg_music', 'assets/music/loading_adventure-beyond.mp3');
+        // this.load.plugin('DialogModalPlugin', './dialog_plugin.js');
     }
 
     create () {
@@ -41,6 +43,7 @@ class SelectionScene extends Phaser.Scene
         });
         vol.on('pointerover', () => vol.setTint(0xcccccc));
         vol.on('pointerout', () => vol.setTint(0xffffff));
+
     }
 
     update () {
