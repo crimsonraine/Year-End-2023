@@ -2,6 +2,7 @@ import TitleScene from './title.js'
 import SelectionScene from './selectionscene.js'
 import Level1Scene from './level1scene.js'
 import FightScene from './fight.js'
+// this.load.plugin('DialogModalPlugin', '/src/dialog_plugin.js');
 
 const config = {
     type: Phaser.AUTO,
@@ -22,7 +23,8 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [
+    scene:
+        [
         TitleScene,
         SelectionScene,
         Level1Scene,

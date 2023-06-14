@@ -6,7 +6,6 @@ class SelectionScene extends Phaser.Scene
     }
 
     preload () {
-        // this.load.plugin('DialogModalPlugin', '/src/dialog_plugin.js');
         this.load.image('bg', 'assets/images/title_background.png');
         this.load.image('advance', 'assets/menu/advance.png');
         this.load.image('sound_on', 'assets/menu/sound_on.png');
@@ -15,18 +14,6 @@ class SelectionScene extends Phaser.Scene
     }
 
     create () {
-        const list = ["Greetings, traveler?", "What brings you here?", "Are you lost?", "hello!"]
-
-
-// this.sys.dialogModal.init();
-        // let sword_button = this.add.text(670, 530, 'ARROW', {fontFamily: 'Press-Start-2P', fill : '#ff2b95'}).setScale(1.4);
-        // sword_button.setInteractive();
-        // let i = -1;
-        // sword_button.on('pointerdown', () => {
-        // i += 1;
-        // this.sys.dialogModal.setText(list[i], true)
-        // });
-
         let music = this.sound.add('bg_music');
         music.setLoop(true);
         music.play();
@@ -56,11 +43,15 @@ class SelectionScene extends Phaser.Scene
         vol.on('pointerover', () => vol.setTint(0xcccccc));
         vol.on('pointerout', () => vol.setTint(0xffffff));
 
+
+
     }
 
     update () {
 
     }
 }
+
+
 
 export default SelectionScene

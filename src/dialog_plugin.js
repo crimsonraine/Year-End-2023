@@ -28,29 +28,21 @@ DialogModalPlugin.prototype = {
 if (this.text) this.text.destroy();
   },
     // Initialize the dialog modal
-  init: function (opts) {
-  // Check to see if any optional parameters were passed
-  if (!opts) opts = {};
-  // set properties from opts object or use defaults
-  this.borderThickness = opts.borderThickness || 3;
-  this.borderColor = opts.borderColor || 0x907748;
-  this.borderAlpha = opts.borderAlpha || 1;
-  this.windowAlpha = opts.windowAlpha || 0.8;
-  this.windowColor = opts.windowColor || 0x303030;
-  this.windowHeight = opts.windowHeight || 150;
-  this.padding = opts.padding || 32;
-  this.closeBtnColor = opts.closeBtnColor || 'darkgoldenrod';
-  this.dialogSpeed = opts.dialogSpeed || 3;
+  init: function () {
+  this.borderThickness = 5;
+  this.borderColor = 0x8a570a;
+  this.windowAlpha = 0.8;
+  this.windowColor = 0xa39c91;
+  this.windowHeight = 150;
+  this.padding = 32;
+  this.dialogSpeed = 3;
   // used for animating the text
   this.eventCounter = 0;
-  // if the dialog window is shown
-  this.visible = true;
   // the current text in the window
   this.text;
   // the text that will be displayed in the window
   this.dialog;
   this.graphics;
-  this.closeBtn;
   // Create the dialog window
   this._createWindow();
 },
