@@ -1,12 +1,17 @@
 class SelectionScene extends Phaser.Scene
 {
+    
     constructor () {
         super({ key: 'SelectionScene' });
         
     }
 
     preload () {
-        this.load.image('bg', 'assets/images/title_background.png');
+        // this.load.image('bg', 'assets/images/title_background.png');
+        this.load.image('char', 'assets/sprites/placeholder.png');
+        this.load.image('chars', 'assets/sprites/placeholder2.png');
+
+        this.load.image('bg', 'assets/images/forestbg.png');
         this.load.image('advance', 'assets/menu/advance.png');
         this.load.image('sound_on', 'assets/menu/sound_on.png');
         this.load.image('sound_off', 'assets/menu/sound_off.png');
@@ -14,18 +19,22 @@ class SelectionScene extends Phaser.Scene
     }
 
     create () {
+        this.add.image(600, 330, 'bg').setScale(5.45).setOrigin(.5, .5);
+
+        this.add.image(800, 390, 'chars').setScale(4).setTint(0x9c9c9c);
+
+
         let music = this.sound.add('bg_music');
         music.setLoop(true);
         music.play();
 
-        let choose = this.add.image(600, 400, 'advance');
-        choose.setScale(3.5);
-        choose.setInteractive();
-        choose.on('pointerdown', () => {
+        let unlock = this.add.image(1000, 310, 'char').setScale(4);
+        unlock.setInteractive();
+        unlock.on('pointerdown', () => {
             this.scene.start('Level1Scene')
         });
-        choose.on('pointerover', () => choose.setTint(0xcccccc));
-        choose.on('pointerout', () => choose.setTint(0xffffff));
+        unlock.on('pointerover', () => unlock.setTint(0xcccccc));
+        unlock.on('pointerout', () => unlock.setTint(0xffffff));
 
         let vol = this.add.image(1050, 30, 'sound_on');
         this.add.text(1023, 60, 'volume', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
@@ -51,7 +60,6 @@ class SelectionScene extends Phaser.Scene
 
     }
 }
-
 
 
 export default SelectionScene

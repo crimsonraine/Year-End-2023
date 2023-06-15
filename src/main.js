@@ -2,6 +2,7 @@ import TitleScene from './title.js'
 import SelectionScene from './selectionscene.js'
 import Level1Scene from './level1scene.js'
 import FightScene from './fight.js'
+// import PracticeScene from './practicescene.js'
 // this.load.plugin('DialogModalPlugin', '/src/dialog_plugin.js');
 
 const config = {
@@ -26,6 +27,7 @@ const config = {
     scene:
         [
         TitleScene,
+        // PracticeScene,
         SelectionScene,
         Level1Scene,
         FightScene,

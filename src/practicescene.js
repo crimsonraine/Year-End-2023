@@ -1,19 +1,30 @@
-const config = {
-  type: Phaser.AUTO,
-  // parent: 'phaser-example',
-  parent: 'game',
-  width: 1200,
-  height: 660,
-  scene: {
-    preload: preload,
-    create: create
-  }
-};
-const game = new Phaser.Game(config);
-function preload () {
+// import Phaser from "phaser";
+
+// const config = {
+//   type: Phaser.AUTO,
+//   // parent: 'phaser-example',
+//   parent: 'game',
+//   width: 1200,
+//   height: 660,
+//   scene: {
+//     preload: preload,
+//     create: create
+//   }
+// };
+class PracticeScene extends Phaser.Scene {
+
+  constructor () {
+    super({ key: 'PracticeScene' });
+    
+}
+
+
+ preload () {
+
   this.load.plugin('DialogModalPlugin', '/src/dialog_plugin.js');
 
-  this.load.image('arrow', 'arrow.png')
+
+  this.load.image('arrow', 'assets/images/arrow.png')
   this.load.image('bg', 'assets/images/title_background.png');
   this.load.image('advance', 'assets/menu/advance.png');
   this.load.image('sound_on', 'assets/menu/sound_on.png');
@@ -21,9 +32,10 @@ function preload () {
   this.load.audio('bg_music', 'assets/music/loading_adventure-beyond.mp3');
 
 }
-function create () {
+create () {
   this.sys.install('DialogModalPlugin');
-console.log(this.sys.dialogModal);
+
+// console.log(this.sys.dialogModal);
 const list = ["Welcome to Sonapath!", "Before your adventure, please select your starting character.", "Some characters are locked, but as you advance in your journey, you'll be able to unlock them.", "Select your player, then click the arrow to begin!"]
 
 this.sys.dialogModal.init();
@@ -66,4 +78,14 @@ vol.on('pointerdown', () => {
 vol.on('pointerover', () => vol.setTint(0xcccccc));
 vol.on('pointerout', () => vol.setTint(0xffffff));
 
+
+
+  }
+  update () {
+
+  }
 }
+
+// const game = new Phaser.Game(config);
+
+export default PracticeScene
