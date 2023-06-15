@@ -10,10 +10,11 @@ class Level1Scene extends Phaser.Scene {
     }
     
     create () {
-        this.add.image(600, 330, 'background').setScale(1.50).setOrigin(.5, .5);
+        this.physics.world.setBounds( 0, 0, 798 * 1.5, 718*1.5 - 5);
 
-        this.cameras.main.setBounds(0, 0, 600 * 2, 330 * 2);
-        this.cameras.main.centerOn(600, 330);
+        this.add.image(600, 530, 'background').setScale(1.50).setOrigin(.5, .5);
+
+        this.cameras.main.setBounds(0, 0, 798 * 1.5, 718 * 1.5 - 5);
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.player = this.physics.add.sprite(100, 550, 'char');
@@ -22,7 +23,7 @@ class Level1Scene extends Phaser.Scene {
         this.player.setCollideWorldBounds(true);
 
         this.cameras.main.startFollow(this.player, true, 0.05, 0.05)
-        this.cameras.main.setZoom(2);
+        this.cameras.main.setZoom(1.5);
 
         this.refreshButton = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
