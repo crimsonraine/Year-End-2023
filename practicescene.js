@@ -1,26 +1,28 @@
-// The game config that is used by Phaser
-var config = {
+const config = {
   type: Phaser.AUTO,
-  parent: 'phaser-example',
-  width: 800,
-  height: 600,
+  // parent: 'phaser-example',
+  parent: 'game',
+  width: 1200,
+  height: 660,
   scene: {
     preload: preload,
     create: create
   }
 };
-// Create a new Phaser Game object
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
+const list = ["Greetings, traveler?", "What brings you here?", "Are you lost?", "hello!"]
 function preload () {
-  this.load.plugin('DialogModalPlugin', './dialog_plugin.js');
+  this.load.plugin('DialogModalPlugin', '/src/dialog_plugin.js');
 }
 function create () {
   this.sys.install('DialogModalPlugin');
 console.log(this.sys.dialogModal);
 this.sys.dialogModal.init();
-this.sys.dialogModal.setText('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', true);
-this.time.addEvent({
-  delay : 3000
-})
-this.sys.dialogModal.setText('help me', true);
+let sword_button = this.add.text(670, 530, 'ARROW', {fontFamily: 'Press-Start-2P', fill : '#5f3b39'}).setScale(1.4);
+sword_button.setInteractive();
+let i = -1;
+sword_button.on('pointerdown', () => {
+  i += 1;
+  this.sys.dialogModal.setText(list[i], true)
+});
 }

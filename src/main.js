@@ -26,7 +26,12 @@ const config = {
         TitleScene,
         SelectionScene,
         Level1Scene,
-        FightScene
+        FightScene,
+        // pack: {
+        //     files: [
+        //         { type: 'DialogModalPlugin', key: 'dialogModal', url: '/src/dialog_plugin.js' }
+        //     ]
+        // }
     ],
     audio: {
         disableWebAudio: true

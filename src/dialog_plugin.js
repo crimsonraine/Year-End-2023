@@ -85,53 +85,10 @@ _createOuterWindow: function (x, y, rectWidth, rectHeight) {
   this.graphics.lineStyle(this.borderThickness, this.borderColor, this.borderAlpha);
   this.graphics.strokeRect(x, y, rectWidth, rectHeight);
 },
-// Creates the close dialog window button
-_createCloseModalButton: function () {
-var self = this;
-this.closeBtn = this.scene.make.text({
-  x: this._getGameWidth() - this.padding - 14,
-  y: this._getGameHeight() - this.windowHeight - this.padding + 3,
-  text: 'X',
-  style: {
-    font: 'bold 12px Arial',
-    fill: this.closeBtnColor
-  },
-
-});
-this.closeBtn.setInteractive();
-this.closeBtn.on('pointerover', function () {
-  this.setTint(0xff0000);
-});
-this.closeBtn.on('pointerout', function () {
-  this.clearTint();
-});
-this.closeBtn.on('pointerdown', function () {
-  self.toggleWindow();
-});
-},
-  // Creates the close dialog button border
-  _createCloseModalButtonBorder: function () {
-    var x = this._getGameWidth() - this.padding - 20;
-    var y = this._getGameHeight() - this.windowHeight - this.padding;
-    this.graphics.strokeRect(x, y, 20, 20);
-    if (self.timedEvent) self.timedEvent.remove();
-if (self.text) self.text.destroy();
-  },
-  // Hide/Show the dialog window
-toggleWindow: function () {
-this.visible = !this.visible;
-if (this.text) this.text.visible = this.visible;
-if (this.graphics) this.graphics.visible = this.visible;
-if (this.closeBtn) this.closeBtn.visible = this.visible;
-},
-// skip: function () {
-//   pos += 1;
-// },
 // Sets the text for the dialog window
 setText: function (text) {
 this._setText(text);
 },
-
 // Calcuate the position of the text in the dialog window
 _setText: function (text) {
 // Reset the dialog
@@ -181,7 +138,5 @@ _createWindow: function () {
   this.graphics = this.scene.add.graphics();
   this._createOuterWindow(dimensions.x, dimensions.y, dimensions.rectWidth, dimensions.rectHeight);
   this._createInnerWindow(dimensions.x, dimensions.y, dimensions.rectWidth, dimensions.rectHeight);
-  this._createCloseModalButton();
-  this._createCloseModalButtonBorder();
 },
 };
