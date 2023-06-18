@@ -4,7 +4,7 @@ class FightScene extends Phaser.Scene {
     }
 
     preload () {
-        this.load.image('background', 'assets/images/battle_background1.webp');
+        this.load.image('background', 'assets/images/battle_background1.png');
         this.load.image('textbox', 'assets/images/textbox.png');
 
         this.load.spritesheet('atelle_idle', 'assets/sprites/atelle/idle_right.png', { frameWidth: 48, frameHeight: 34 });
@@ -38,7 +38,6 @@ class FightScene extends Phaser.Scene {
         this.add.text(817, 117, 'ASHARRA', {fontFamily: 'Press-Start-2P', fill : '#6b5341'}).setScale(1.1);
         this.add.text(950, 117, 'HP:', {fontFamily: 'Press-Start-2P', fill : '#295b3e'}).setScale(1.1);
         let asharra_text = this.add.text(1000, 119, asharra_hp + '/100', {fontFamily: 'Press-Start-2P', fill : '#295b3e'}).setScale(0.75);
-
 
         function attack (damage, weapon) {
             asharra_hp -= damage; 
