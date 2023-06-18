@@ -5,10 +5,8 @@ class TitleScene extends Phaser.Scene
     }
 
     preload () {
-        // this.load.image('bg', 'assets/images/title_background.png');
-        this.load.image('bg', 'assets/images/forestbg.png');
-
-        this.load.image('title', 'assets/images/sonapath3.png');
+        this.load.image('bg', 'assets/images/title_background2.jpg');
+        this.load.image('title', 'assets/images/sonapath2.png');
         this.load.image('play_button', 'assets/menu/play.png');
         this.load.image('sound_on', 'assets/menu/sound_on.png');
         this.load.image('sound_off', 'assets/menu/sound_off.png');
@@ -20,8 +18,10 @@ class TitleScene extends Phaser.Scene
         music.setLoop(true);
         music.play();
 
+        this.add.image(600, 330, 'bg').setScale(0.9).setOrigin(.5, .5);
         this.add.image(600, 330, 'bg').setScale(5.45).setOrigin(.5, .5);
 
+        this.title = this.add.image(625, 200, 'title');
         this.title = this.add.image(590, 200, 'title');
         this.title.setScale(1);
 

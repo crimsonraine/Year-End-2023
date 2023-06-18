@@ -1,6 +1,6 @@
 import TitleScene from './title.js'
-import SelectionScene from './selectionscene.js'
-import Level1Scene from './level1scene.js'
+import SelectionScene from './selection.js'
+import MapScene from './map.js'
 import FightScene from './fight.js'
 // import PracticeScene from './practicescene.js'
 // this.load.plugin('DialogModalPlugin', '/src/dialog_plugin.js');
@@ -29,7 +29,7 @@ const config = {
         TitleScene,
         // PracticeScene,
         SelectionScene,
-        Level1Scene,
+        MapScene,
         FightScene,
         // pack: {
         //     files: [
