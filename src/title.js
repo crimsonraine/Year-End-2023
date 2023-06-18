@@ -9,7 +9,7 @@ class TitleScene extends Phaser.Scene
     }
 
     create () {
-        this.scene.start('Level1Scene');
+        this.scene.start('FightScene');
     }
 }
 

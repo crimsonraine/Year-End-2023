@@ -3,6 +3,11 @@ class Level1Scene extends Phaser.Scene {
         super({key: 'Level1Scene'});
     }
 
+    init (data) {
+        // this.username = data.username;
+        this.fightWinner = data.winner;
+    }
+
     preload () {
         this.load.image('place', 'sprites/placeholder.png');
         this.load.image('background', 'images/background2.jpg');
