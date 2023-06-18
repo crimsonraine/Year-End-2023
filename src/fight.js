@@ -4,14 +4,14 @@ class FightScene extends Phaser.Scene {
     }
 
     preload () {
-        this.load.image('background', 'images/battle_background1.webp');
-        this.load.image('textbox', 'images/textbox.png');
+        this.load.image('background', 'assets/images/battle_background1.webp');
+        this.load.image('textbox', 'assets/images/textbox.png');
 
-        this.load.spritesheet('atelle_idle', 'sprites/atelle/idle_right.png', { frameWidth: 48, frameHeight: 34 });
-        this.load.spritesheet('atelle_fight', 'sprites/atelle/fight_right.png', { frameWidth: 45, frameHeight: 34 });
+        this.load.spritesheet('atelle_idle', 'assets/sprites/atelle/idle_right.png', { frameWidth: 48, frameHeight: 34 });
+        this.load.spritesheet('atelle_fight', 'assets/sprites/atelle/fight_right.png', { frameWidth: 45, frameHeight: 34 });
 
-        this.load.spritesheet('asharra_idle', 'sprites/asharra/idle_left.png', { frameWidth: 64, frameHeight: 45});
-        this.load.spritesheet('asharra_fight', 'sprites/asharra/fight_left.png', { frameWidth: 64, frameHeight: 43})
+        this.load.spritesheet('asharra_idle', 'assets/sprites/asharra/idle_left.png', { frameWidth: 64, frameHeight: 45});
+        this.load.spritesheet('asharra_fight', 'assets/sprites/asharra/fight_left.png', { frameWidth: 64, frameHeight: 43})
     }
 
     create () {
