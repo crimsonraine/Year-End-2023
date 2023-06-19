@@ -7,38 +7,64 @@ class SelectionScene extends Phaser.Scene
     }
 
     preload () {
-        // this.load.image('bg', 'assets/images/title_background.png');
+        this.load.image('dialogue_background', 'assets/images/dialogue_background.png');
+        this.load.image('next_button', 'assets/menu/advance.png');
+        this.load.spritesheet('atelle_idles', 'assets/sprites/atelle/idle_right.png', { frameWidth: 20, frameHeight: 34 });
         this.load.image('char', 'assets/sprites/placeholder.png');
         this.load.image('chars', 'assets/sprites/placeholder2.png');
-
-        this.load.image('bg', 'assets/images/forestbg.png');
         this.load.image('advance', 'assets/menu/advance.png');
         this.load.image('sound_on', 'assets/menu/sound_on.png');
         this.load.image('sound_off', 'assets/menu/sound_off.png');
         this.load.audio('bg_music', 'assets/music/loading_adventure-beyond.mp3');
+
+        this.load.scenePlugin('DialogModalPlugin', 'src/dialog_plugin.js');
     }
 
     create () {
         this.add.image(600, 330, 'bg').setScale(5.45).setOrigin(.5, .5);
+        this.bg = this.add.image(600, 330, 'dialogue_background').setScale(2.35).setOrigin(.5, .5);
+        this.bg.visible = true;
 
-        this.add.image(800, 390, 'chars').setScale(4).setTint(0x9c9c9c);
-
+        this.dialogModal.init();
+        
+        let list = [
+            "Welcome to Sonapath!", 
+            "Before your adventure, please select your starting character.", 
+            "Some characters are locked, but as you advance in your journey, you'll be able to unlock them.",
+            "Select your player to begin!", 
+        ]
+        let i = 0;
+        
+        let next_button = this.add.image(1120, 580, 'next_button').setScale(2);
+        next_button.visible = true;
+        next_button.setInteractive();
+        next_button.on('pointerover', () => next_button.setTint(0xcccccc));
+        next_button.on('pointerout', () => next_button.setTint(0xffffff));
+        next_button.on('pointerdown', () => {
+            if (i == 1) {
+                this.dialogModal.setText(list[i], true);
+                i += 1;
+            }
+            else if (i == 4) {
+                // this.scene.start('GreetingScene');
+                next_button.visible = true;
+            }
+            else {
+                this.dialogModal.setText(list[i], true);
+                i += 1;
+            }
+        });
 
         let music = this.sound.add('bg_music');
         music.setLoop(true);
         music.play();
 
-        let choose = this.add.image(600, 400, 'advance');
-        choose.setScale(3.5);
-        choose.setInteractive();
-        choose.on('pointerdown', () => {
-            this.scene.start('OpeningScene')
-        });
-
-        let unlock = this.add.image(1000, 310, 'char').setScale(4);
+        this.add.image(1025, 360, 'char').setScale(5.5).setTint(0x9c9c9c);
+        this.add.image(890, 310, 'chars').setScale(5.5).setTint(0x9c9c9c);
+        let unlock = this.physics.add.sprite(725, 360, 'atelle_idles').setScale(8);
         unlock.setInteractive();
         unlock.on('pointerdown', () => {
-            this.scene.start('Level1Scene')
+            this.scene.start('OpeningScene')
         });
         
         unlock.on('pointerover', () => unlock.setTint(0xcccccc));
@@ -59,15 +85,10 @@ class SelectionScene extends Phaser.Scene
         });
         vol.on('pointerover', () => vol.setTint(0xcccccc));
         vol.on('pointerout', () => vol.setTint(0xffffff));
-
-
-
     }
-
     update () {
 
     }
 }
-
 
 export default SelectionScene
