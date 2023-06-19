@@ -11,9 +11,11 @@ const config = {
 };
 const game = new Phaser.Game(config);
 const list = ["Greetings, traveler?", "What brings you here?", "Are you lost?", "hello!"]
+
 function preload () {
   this.load.plugin('DialogModalPlugin', '/src/dialog_plugin.js');
 }
+
 function create () {
   this.sys.install('DialogModalPlugin');
 console.log(this.sys.dialogModal);

@@ -4,7 +4,7 @@ class FightScene extends Phaser.Scene {
     }
 
     preload () {
-        this.load.image('background', 'assets/images/battle_background1.png');
+        this.load.image('battle_background', 'assets/images/battle_background1.png');
         this.load.image('textbox', 'assets/images/textbox.png');
 
         this.load.spritesheet('atelle_idle', 'assets/sprites/atelle/idle_right.png', { frameWidth: 48, frameHeight: 34 });
@@ -18,7 +18,7 @@ class FightScene extends Phaser.Scene {
         this.atelleFight = false;
         this.asharraFight = false;
 
-        this.add.image(600, 330, 'background').setScale(1.225).setOrigin(.5, .5);
+        this.add.image(600, 330, 'battle_background').setScale(1.225).setOrigin(.5, .5);
 
         let atelle_hp = 100;
         let asharra_hp = 100; 

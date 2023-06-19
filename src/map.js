@@ -1,6 +1,6 @@
 class Level1Scene extends Phaser.Scene {
     constructor () {
-        super({key: 'Level1Scene'});
+        super({key: 'MapScene'});
     }
 
     init (data) {
@@ -10,7 +10,7 @@ class Level1Scene extends Phaser.Scene {
 
     preload () {
         this.load.image('char', 'assets/sprites/placeholder.png');
-        this.load.image('background', 'assets/images/background2.jpg');
+        this.load.image('map_background', 'assets/images/background2.jpg');
         this.moveCam = false;
     }
     
@@ -47,7 +47,7 @@ class Level1Scene extends Phaser.Scene {
     
         this.physics.world.setBounds( 0, 0, 798 * 1.5, 718*1.5 - 5);
 
-        this.add.image(600, 530, 'background').setScale(1.50).setOrigin(.5, .5);
+        this.add.image(600, 530, 'map_background').setScale(1.50).setOrigin(.5, .5);
 
         this.cameras.main.setBounds(0, 0, 798 * 1.5, 718 * 1.5 - 5);
         this.cursors = this.input.keyboard.createCursorKeys();

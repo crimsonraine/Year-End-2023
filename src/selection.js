@@ -35,13 +35,13 @@ class SelectionScene extends Phaser.Scene
         choose.setScale(3.5);
         choose.setInteractive();
         choose.on('pointerdown', () => {
-            this.scene.start('Level1Scene')
+            this.scene.start('OpeningScene')
         });
         choose.on('pointerover', () => choose.setTint(0xcccccc));
         choose.on('pointerout', () => choose.setTint(0xffffff));
 
-        let vol = this.add.image(1050, 30, 'sound_on');
-        this.add.text(1023, 60, 'volume', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
+        let vol = this.add.image(1170, 30, 'sound_on');
+        this.add.text(1140, 55, 'volume', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
         vol.setScale(1.5);
         vol.setInteractive();
         vol.on('pointerdown', () => {

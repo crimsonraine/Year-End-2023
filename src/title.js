@@ -20,17 +20,17 @@ class TitleScene extends Phaser.Scene
 
         this.add.image(600, 330, 'bg').setScale(0.9).setOrigin(.5, .5);
 
-        this.title = this.add.image(625, 200, 'title');
+        this.title = this.add.image(820, 260, 'title');
         this.title.setScale(1);
 
-        let play = this.add.image(600, 400, 'play_button');
+        let play = this.add.image(600, 520, 'play_button');
         play.setScale(3.5);
         play.setInteractive();
         play.on('pointerdown', () => this.scene.start('SelectionScene'));
         play.on('pointerover', () => play.setTint(0xcccccc));
         play.on('pointerout', () => play.setTint(0xffffff));
 
-        let vol = this.add.image(1050, 30, 'sound_on');
+        let vol = this.add.image(1170, 30, 'sound_on');
         this.add.text(1023, 60, 'volume', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
         vol.setScale(1.5);
         vol.setInteractive();

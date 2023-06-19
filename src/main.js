@@ -1,7 +1,16 @@
 import TitleScene from './title.js'
 import SelectionScene from './selection.js'
+import OpeningScene from './dialogue/opening.js'
+import GreetingScene from './dialogue/greeting.js'
 import MapScene from './map.js'
+import EncounterScene from './dialogue/asharra_encounter.js'
+import BeforeFightScene from './dialogue/before_fight.js'
 import FightScene from './fight.js'
+import LostFightScene from './dialogue/lost_fight.js'
+import WonFightScene from './dialogue/won_fight.js'
+import EndingScene from './dialogue/ending.js'
+
+import DialogModalPlugin from './dialog_plugin.js'
 
 const config = {
     type: Phaser.AUTO,
@@ -14,7 +23,7 @@ const config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },
-            debug: true
+            debug: false
         }
     },
     scale: {
@@ -25,14 +34,25 @@ const config = {
     scene: [
         TitleScene,
         SelectionScene,
+        OpeningScene,
+        GreetingScene,
         MapScene,
+        EncounterScene,
+        BeforeFightScene,
         FightScene,
-        // pack: {
-        //     files: [
-        //         { type: 'DialogModalPlugin', key: 'dialogModal', url: '/src/dialog_plugin.js' }
-        //     ]
-        // }
+        LostFightScene,
+        WonFightScene,
+        EndingScene
     ],
+    plugins: {
+        scene: [
+          {
+            key: 'DialogModalPlugin',
+            plugin: DialogModalPlugin,
+            mapping: 'dialogModal'
+          }
+        ]
+    },
     audio: {
         disableWebAudio: true
     }
