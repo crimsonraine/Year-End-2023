@@ -14,7 +14,8 @@ class TitleScene extends Phaser.Scene
     }
 
     create () {
-        this.scene.start('MapScene')
+        // used for testing specific scenes
+        // this.scene.start('MapScene')
 
         let music = this.sound.add('bg_music');
         music.setLoop(true);
