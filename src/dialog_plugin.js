@@ -43,14 +43,11 @@ if (this.text) this.text.destroy();
   this.dialogSpeed = opts.dialogSpeed || 3;
   // used for animating the text
   this.eventCounter = 0;
-  // if the dialog window is shown
-  this.visible = true;
   // the current text in the window
   this.text;
   // the text that will be displayed in the window
   this.dialog;
   this.graphics;
-  this.closeBtn;
   // Create the dialog window
   this._createWindow();
 },

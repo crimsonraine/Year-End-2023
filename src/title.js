@@ -19,6 +19,7 @@ class TitleScene extends Phaser.Scene
         music.play();
 
         this.add.image(600, 330, 'bg').setScale(0.9).setOrigin(.5, .5);
+        this.add.image(600, 330, 'bg').setScale(5.45).setOrigin(.5, .5);
 
         this.title = this.add.image(820, 260, 'title');
         this.title.setScale(1);

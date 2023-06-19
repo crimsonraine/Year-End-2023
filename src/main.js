@@ -31,8 +31,10 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [
+    scene:
+        [
         TitleScene,
+        // PracticeScene,
         SelectionScene,
         OpeningScene,
         GreetingScene,

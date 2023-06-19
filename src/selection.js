@@ -1,13 +1,17 @@
 class SelectionScene extends Phaser.Scene
 {
+    
     constructor () {
         super({ key: 'SelectionScene' });
         
     }
 
     preload () {
-        // this.load.plugin('DialogModalPlugin', '/src/dialog_plugin.js');
-        this.load.image('bg', 'assets/images/title_background.png');
+        // this.load.image('bg', 'assets/images/title_background.png');
+        this.load.image('char', 'assets/sprites/placeholder.png');
+        this.load.image('chars', 'assets/sprites/placeholder2.png');
+
+        this.load.image('bg', 'assets/images/forestbg.png');
         this.load.image('advance', 'assets/menu/advance.png');
         this.load.image('sound_on', 'assets/menu/sound_on.png');
         this.load.image('sound_off', 'assets/menu/sound_off.png');
@@ -15,17 +19,10 @@ class SelectionScene extends Phaser.Scene
     }
 
     create () {
-        const list = ["Greetings, traveler?", "What brings you here?", "Are you lost?", "hello!"]
+        this.add.image(600, 330, 'bg').setScale(5.45).setOrigin(.5, .5);
 
+        this.add.image(800, 390, 'chars').setScale(4).setTint(0x9c9c9c);
 
-// this.sys.dialogModal.init();
-        // let sword_button = this.add.text(670, 530, 'ARROW', {fontFamily: 'Press-Start-2P', fill : '#ff2b95'}).setScale(1.4);
-        // sword_button.setInteractive();
-        // let i = -1;
-        // sword_button.on('pointerdown', () => {
-        // i += 1;
-        // this.sys.dialogModal.setText(list[i], true)
-        // });
 
         let music = this.sound.add('bg_music');
         music.setLoop(true);
@@ -37,8 +34,15 @@ class SelectionScene extends Phaser.Scene
         choose.on('pointerdown', () => {
             this.scene.start('OpeningScene')
         });
-        choose.on('pointerover', () => choose.setTint(0xcccccc));
-        choose.on('pointerout', () => choose.setTint(0xffffff));
+
+        let unlock = this.add.image(1000, 310, 'char').setScale(4);
+        unlock.setInteractive();
+        unlock.on('pointerdown', () => {
+            this.scene.start('Level1Scene')
+        });
+        
+        unlock.on('pointerover', () => unlock.setTint(0xcccccc));
+        unlock.on('pointerout', () => unlock.setTint(0xffffff));
 
         let vol = this.add.image(1170, 30, 'sound_on');
         this.add.text(1140, 55, 'volume', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
@@ -56,11 +60,14 @@ class SelectionScene extends Phaser.Scene
         vol.on('pointerover', () => vol.setTint(0xcccccc));
         vol.on('pointerout', () => vol.setTint(0xffffff));
 
+
+
     }
 
     update () {
 
     }
 }
+
 
 export default SelectionScene
