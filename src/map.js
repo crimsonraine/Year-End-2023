@@ -4,8 +4,7 @@ class MapScene extends Phaser.Scene {
     }
 
     init (data) {
-        // this.username = data.username;
-        this.fightWinner = data.winner;
+        this.startBeforeFight = data.startBeforeFight;
     }
 
     preload () {
@@ -273,7 +272,12 @@ class MapScene extends Phaser.Scene {
         this.asharra.anims.play('asharra_idle', true);
 
         if (this.physics.overlap(this.atelle, this.asharra) && this.keyF.isDown) { 
-            this.scene.start('EncounterScene')
+            if (this.startBeforeFight) {
+                this.scene.start('BeforeFightScene');
+            }
+            else {
+                this.scene.start('EncounterScene');
+            }
         } 
 
         if (this.cursors.left.isDown || this.keyA.isDown) {
