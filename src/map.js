@@ -222,15 +222,15 @@ class MapScene extends Phaser.Scene {
 
         this.kirin = this.physics.add.sprite(610, 808, 'kirin_idle').setScale(0.8);
         this.kirin.getBounds();
-        this.kirin.setOffset(6,3);
-        this.kirin.body.setSize(this.kirin.width * 0.4, this.kirin.height * 0.75, false);
+        this.kirin.setOffset(6,13);
+        this.kirin.body.setSize(this.kirin.width * 0.4, this.kirin.height * 0.5, false);
         this.kirin.setCollideWorldBounds(true);
         this.physics.add.collider(this.kirin, this.rectangles);
 
         this.atelle = this.physics.add.sprite(583, 783, 'atelle_idle').setScale(1.7);
         this.atelle.getBounds();
-        this.atelle.setOffset(6, 0);
-        this.atelle.body.setSize(this.atelle.width * 0.3, this.atelle.height * 0.75, false);
+        this.atelle.setOffset(6, 10);
+        this.atelle.body.setSize(this.atelle.width * 0.3, this.atelle.height * 0.5, false);
         this.atelle.setCollideWorldBounds(true);
         this.physics.add.collider(this.atelle, this.rectangles);
         this.physics.add.overlap(this.atelle, this.coins, collectCoin, null, this);
