@@ -205,6 +205,67 @@ class MapScene extends Phaser.Scene {
         this.add.rectangle(350, 415, 20, 110, 0xFFA701);
         this.add.rectangle(655, 415, 20, 110, 0xFFA701);
         this.add.rectangle(825, 330, 20, 50, 0xFFA701);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+        this.anims.create({
+            key: 'kirin_idle',
+            frames: this.anims.generateFrameNumbers('kirin_idle', { start: 0, end: 3 }),
+            frameRate: 5,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'kirin_idle_left',
+            frames: this.anims.generateFrameNumbers('kirin_idle_left', { start: 0, end: 3 }),
+            frameRate: 5,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'kirin_idle_right',
+            frames: this.anims.generateFrameNumbers('kirin_idle_right', { start: 0, end: 3 }),
+            frameRate: 5,
+            repeat: -1
+        }); 
+
+        this.atelle = this.physics.add.sprite(583, 783, 'atelle_idle').setScale(1.7);
+        this.atelle.getBounds();
+        this.atelle.body.setSize(this.atelle.width, this.atelle.height, true);
+        this.atelle.setCollideWorldBounds(true);
+        this.physics.add.overlap(this.atelle, this.coins, collectCoin, null, this);
+        this.physics.add.overlap(this.atelle, this.weapons, collectWeapon, null, this);
+
+        this.kirin = this.physics.add.sprite(610, 808, 'kirin_idle').setScale(0.8);
+
+        this.cameras.main.setBounds(0, 0, 798 * 1.5, 718 * 1.5 - 5);
+        this.cameras.main.startFollow(this.atelle, true, 0.05, 0.05)
+        this.cameras.main.setZoom(1.5);
+
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.refreshButton = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     
         function collectCoin (player, coin) {
             coin.destroy(true); 
@@ -221,26 +282,43 @@ class MapScene extends Phaser.Scene {
         if (this.cursors.left.isDown || this.keyA.isDown) {
             this.atelle.body.setVelocityX(-200);
             this.atelle.anims.play('atelle_walk_left', true);
+
+            this.kirin.body.setVelocityX(-175);
+            this.kirin.anims.play('kirin_idle_left', true);
         }
     
         else if (this.cursors.right.isDown || this.keyD.isDown) {
             this.atelle.body.setVelocityX(200);
             this.atelle.anims.play('atelle_walk_right', true);
+
+            this.kirin.body.setVelocityX(175);
+            this.kirin.anims.play('kirin_idle_right', true);
         }
     
         else if (this.cursors.up.isDown || this.keyW.isDown) {
             this.atelle.body.setVelocityY(-200);
             this.atelle.anims.play('atelle_walk_back', true);
+
+            this.kirin.body.setVelocityY(-175);
+            this.kirin.anims.play('kirin_idle', true);
         }
     
         else if (this.cursors.down.isDown || this.keyS.isDown) {
             this.atelle.body.setVelocityY(200);
             this.atelle.anims.play('atelle_walk_front', true);
+
+            this.kirin.body.setVelocityY(175);
+            this.kirin.anims.play('kirin_idle', true);
         }
         else {
             this.atelle.body.setVelocityX(0);
             this.atelle.body.setVelocityY(0);
+
+            this.kirin.body.setVelocityX(0);
+            this.kirin.body.setVelocityY(0);
+
             this.atelle.anims.play('atelle_idle', true);
+            this.kirin.anims.play('kirin_idle', true);
         }
 
         this.coins.children.iterate(function (child) {
