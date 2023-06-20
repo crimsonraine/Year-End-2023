@@ -43,7 +43,7 @@ class MapScene extends Phaser.Scene {
         this.place.body.setSize(this.place.body.height - 19, this.place.body.width, true);
         this.place.setCollideWorldBounds(true);
 
-        this.physics.world.setBounds(50, 0, 590 *2 + 20, 530*2 + 55);
+        this.physics.world.setBounds(0, 0, 590 *2 + 100, 530*2 + 55);
 
         this.add.image(600, 530, 'map_background').setScale(1.50).setOrigin(.5, .5);
 
@@ -209,14 +209,17 @@ class MapScene extends Phaser.Scene {
             repeat: -1
         }); 
 
+        this.kirin = this.physics.add.sprite(610, 808, 'kirin_idle').setScale(0.8);
+        this.kirin.getBounds();
+        this.kirin.body.setSize(this.kirin.width, this.kirin.height, true);
+        this.kirin.setCollideWorldBounds(true);
+
         this.atelle = this.physics.add.sprite(583, 783, 'atelle_idle').setScale(1.7);
         this.atelle.getBounds();
         this.atelle.body.setSize(this.atelle.width, this.atelle.height, true);
         this.atelle.setCollideWorldBounds(true);
         this.physics.add.overlap(this.atelle, this.coins, collectCoin, null, this);
         this.physics.add.overlap(this.atelle, this.weapons, collectWeapon, null, this);
-
-        this.kirin = this.physics.add.sprite(610, 808, 'kirin_idle').setScale(0.8);
 
         this.cameras.main.setBounds(2, 0, 590 *2 + 15, 530*2 + 10);
         this.cameras.main.startFollow(this.atelle, true, 0.05, 0.05)
@@ -246,7 +249,7 @@ class MapScene extends Phaser.Scene {
 
         this.physics.collide(this.place, this.a);
         if (this.cursors.left.isDown || this.keyA.isDown) {
-            this.atelle.body.setVelocityX(-200);
+            this.atelle.body.setVelocityX(-225);
             this.atelle.anims.play('atelle_walk_left', true);
 
             this.kirin.body.setVelocityX(-175);
@@ -254,7 +257,7 @@ class MapScene extends Phaser.Scene {
         }
     
         else if (this.cursors.right.isDown || this.keyD.isDown) {
-            this.atelle.body.setVelocityX(200);
+            this.atelle.body.setVelocityX(225);
             this.atelle.anims.play('atelle_walk_right', true);
 
             this.kirin.body.setVelocityX(175);
@@ -262,7 +265,7 @@ class MapScene extends Phaser.Scene {
         }
     
         else if (this.cursors.up.isDown || this.keyW.isDown) {
-            this.atelle.body.setVelocityY(-200);
+            this.atelle.body.setVelocityY(-225);
             this.atelle.anims.play('atelle_walk_back', true);
 
             this.kirin.body.setVelocityY(-175);
@@ -270,7 +273,7 @@ class MapScene extends Phaser.Scene {
         }
     
         else if (this.cursors.down.isDown || this.keyS.isDown) {
-            this.atelle.body.setVelocityY(200);
+            this.atelle.body.setVelocityY(225);
             this.atelle.anims.play('atelle_walk_front', true);
 
             this.kirin.body.setVelocityY(175);
@@ -284,6 +287,22 @@ class MapScene extends Phaser.Scene {
             this.kirin.body.setVelocityY(0);
 
             this.atelle.anims.play('atelle_idle', true);
+            this.kirin.anims.play('kirin_idle', true);
+        }
+
+        if (Phaser.Math.Distance.Between(this.atelle.body.x, this.atelle.body.y, this.kirin.body.x, this.kirin.body.y) > 50) {
+            // this.atelle.body.setVelocityX(0);
+            // this.atelle.body.setVelocityY(0);
+            if (this.atelle.body.x > this.kirin.body.x) {
+                if (Math.abs(this.atelle.body.y - this.kirin.body.y) < 100) this.kirin.anims.play('kirin_idle', true);
+                else this.kirin.anims.play('kirin_idle_right', true);
+            }
+            else {
+                if (Math.abs(this.atelle.body.y - this.kirin.body.y) < 50) this.kirin.anims.play('kirin_idle', true);
+                else this.kirin.anims.play('kirin_idle_left', true);
+            }
+            this.physics.moveToObject(this.kirin, this.atelle, 100);
+        } else {
             this.kirin.anims.play('kirin_idle', true);
         }
                 
