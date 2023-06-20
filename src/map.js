@@ -12,6 +12,9 @@ class MapScene extends Phaser.Scene {
         this.load.image('char', 'assets/sprites/placeholder.png');
         this.load.image('map_background', 'assets/images/background2.jpg');
         this.load.image('guide', 'assets/images/direction_arrow.png');
+        this.load.image('rock', 'assets/images/rock.png');
+        this.load.image('sword', 'assets/images/sword.png');
+        this.load.image('axe', 'assets/images/axe.png');
 
         // this.load.spritesheet('atelle_idle_back', 'assets/sprites/atelle/idle_back.png', { frameWidth: 48, frameHeight: 34 });
         // this.load.spritesheet('atelle_idle_right', 'assets/sprites/atelle/idle_right.png', { frameWidth: 48, frameHeight: 34 });
@@ -25,12 +28,14 @@ class MapScene extends Phaser.Scene {
         this.load.spritesheet('kirin_idle_left', 'assets/sprites/kirin/idle_left.png', { frameWidth: 80, frameHeight: 67 });
         this.load.spritesheet('kirin_idle_right', 'assets/sprites/kirin/idle_right.png', { frameWidth: 80, frameHeight: 67 });
         this.load.spritesheet('kirin_idle', 'assets/sprites/kirin/idle.png', { frameWidth: 80, frameHeight: 67 });
+        this.load.spritesheet('coin', 'assets/images/coin.png', { frameWidth: 16, frameHeight: 16 });
 
         this.moveCam = false;
     }
     
     create () {
         this.destination = [600,20];
+        let coins_collected = 0
 
         this.place = this.physics.add.image(590, 670, 'place');
         this.place.getBounds();
@@ -44,6 +49,54 @@ class MapScene extends Phaser.Scene {
         this.cameras.main.setBounds(2, 0, 590 *2 + 15, 530*2 + 10);
 
         this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.anims.create({
+            key: 'coin',
+            frames: this.anims.generateFrameNumbers('coin', { start: 0, end: 4 }),
+            frameRate: 7,
+            repeat: -1
+        });
+
+        this.coins = this.physics.add.staticGroup({
+            key: 'coin',
+            repeat: 2,
+            setXY: { x: 474, y: 600, stepY: 35 }
+        });
+
+        this.coins.children.iterate(function (child) {
+            child.setScale(1.2);
+            child.setSize(child.body.width, child.body.height+2, true);
+        });
+
+        this.coins.create(865, 570, 'coin').setScale(1.2);
+        this.coins.create(865, 605, 'coin').setScale(1.2);
+        this.coins.create(865, 640, 'coin').setScale(1.2);
+
+        this.coins.create(835, 870, 'coin').setScale(1.2);
+        this.coins.create(870, 870, 'coin').setScale(1.2);
+        this.coins.create(905, 870, 'coin').setScale(1.2);
+
+        this.coins.create(300, 770, 'coin').setScale(1.2);
+
+        this.coins.create(745, 385, 'coin').setScale(1.2);
+        this.coins.create(780, 385, 'coin').setScale(1.2);
+        this.coins.create(815, 385, 'coin').setScale(1.2);
+
+        this.coins.create(415, 253, 'coin').setScale(1.2);
+        this.coins.create(450, 253, 'coin').setScale(1.2);
+        this.coins.create(485, 253, 'coin').setScale(1.2);
+
+        this.coins.create(900, 223, 'coin').setScale(1.2);
+
+        this.coins.create(235, 175, 'coin').setScale(1.2);
+
+        this.coins.create(535, 80, 'coin').setScale(1.2);
+
+        // this.weapons = this.physics.add.staticGroup();
+        // this.weapons.create(237, 590, 'rock');
+        // this.weapons.create(1132, 430, 'sword');
+        // this.weapons.create(625, 378, 'axe');
+
 
         this.anims.create({
             key: 'atelle_idle',
@@ -189,6 +242,10 @@ class MapScene extends Phaser.Scene {
             this.atelle.body.setVelocityY(0);
             this.atelle.anims.play('atelle_idle', true);
         }
+
+        this.coins.children.iterate(function (child) {
+            child.anims.play('coin', true);
+        });
                 
         let dx = this.destination[0] - this.arrow.x;
         let dy = this.destination[1] - this.arrow.y;
