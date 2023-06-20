@@ -29,6 +29,8 @@ class MapScene extends Phaser.Scene {
         this.load.spritesheet('kirin_idle_right', 'assets/sprites/kirin/idle_right.png', { frameWidth: 80, frameHeight: 67 });
         this.load.spritesheet('kirin_idle', 'assets/sprites/kirin/idle.png', { frameWidth: 80, frameHeight: 67 });
 
+        this.load.spritesheet('asharra_idle', 'assets/sprites/asharra/idle_left.png', { frameWidth: 64, frameHeight: 45});
+
         this.load.spritesheet('coin', 'assets/images/coin.png', { frameWidth: 16, frameHeight: 16 });
 
         this.moveCam = false;
@@ -36,7 +38,7 @@ class MapScene extends Phaser.Scene {
     
     create () {
         let coins_collected = 0; 
-        
+
         this.destination = [600,20];
 
         this.place = this.physics.add.image(590, 670, 'place');
@@ -210,6 +212,13 @@ class MapScene extends Phaser.Scene {
             repeat: -1
         }); 
 
+        this.anims.create({
+            key: 'asharra_idle',
+            frames: this.anims.generateFrameNumbers('asharra_idle', { start: 0, end: 5 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
         this.atelle = this.physics.add.sprite(583, 783, 'atelle_idle').setScale(1.7);
         this.atelle.getBounds();
         this.atelle.body.setSize(this.atelle.width, this.atelle.height, true);
@@ -218,6 +227,10 @@ class MapScene extends Phaser.Scene {
         this.physics.add.overlap(this.atelle, this.weapons, collectWeapon, null, this);
 
         this.kirin = this.physics.add.sprite(610, 808, 'kirin_idle').setScale(0.8);
+
+        this.asharra = this.physics.add.sprite(412, 70, 'asharra_idle').setScale(2);
+        this.asharra.getBounds();
+        this.asharra.body.setSize(this.asharra.width, this.asharra.height, true);
 
         this.cameras.main.setBounds(2, 0, 590 *2 + 15, 530*2 + 10);
         // this.cameras.main.setBounds(0, 0, 798 * 1.5, 718 * 1.5 - 5);
@@ -230,6 +243,7 @@ class MapScene extends Phaser.Scene {
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
     
         function collectCoin (player, coin) {
             coin.destroy(true); 
@@ -242,11 +256,18 @@ class MapScene extends Phaser.Scene {
     }
     
     update () {
+        this.physics.collide(this.place, this.a);
+
         this.coins.children.iterate(function (child) {
             child.anims.play('coin', true);
         });
 
-        this.physics.collide(this.place, this.a);
+        this.asharra.anims.play('asharra_idle', true);
+
+        if (this.physics.overlap(this.atelle, this.asharra) && this.keyF.isDown) { 
+            this.scene.start('EncounterScene')
+        } 
+
         if (this.cursors.left.isDown || this.keyA.isDown) {
             this.atelle.body.setVelocityX(-200);
             this.atelle.anims.play('atelle_walk_left', true);
