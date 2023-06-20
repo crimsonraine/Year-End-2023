@@ -1,4 +1,6 @@
-class SelectionScene extends Phaser.Scene {  
+class SelectionScene extends Phaser.Scene
+{
+    
     constructor () {
         super({ key: 'SelectionScene' });
         
@@ -27,7 +29,7 @@ class SelectionScene extends Phaser.Scene {
         
         let list = [
             "Welcome to Sonapath!", 
-            "Before you begin your adventure, please select your starting character.", 
+            "Before your adventure, please select your starting character.", 
             "Some characters are locked, but as you advance in your journey, you'll be able to unlock them.",
             "Select your player to begin!", 
         ]
@@ -39,8 +41,18 @@ class SelectionScene extends Phaser.Scene {
         next_button.on('pointerover', () => next_button.setTint(0xcccccc));
         next_button.on('pointerout', () => next_button.setTint(0xffffff));
         next_button.on('pointerdown', () => {
-            this.dialogModal.setText(list[i], true);
-            i += 1;
+            if (i == 1) {
+                this.dialogModal.setText(list[i], true);
+                i += 1;
+            }
+            else if (i == 4) {
+                // this.scene.start('GreetingScene');
+                next_button.visible = true;
+            }
+            else {
+                this.dialogModal.setText(list[i], true);
+                i += 1;
+            }
         });
 
         let music = this.sound.add('bg_music');
@@ -59,7 +71,7 @@ class SelectionScene extends Phaser.Scene {
         unlock.on('pointerout', () => unlock.setTint(0xffffff));
 
         let vol = this.add.image(1170, 30, 'sound_on');
-        this.add.text(1138, 55, 'volume', { fontFamily: 'Courier New' });
+        this.add.text(1140, 55, 'volume', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
         vol.setScale(1.5);
         vol.setInteractive();
         vol.on('pointerdown', () => {
