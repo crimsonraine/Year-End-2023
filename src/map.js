@@ -11,6 +11,9 @@ class Level1Scene extends Phaser.Scene {
     preload () {
         this.load.image('char', 'assets/sprites/placeholder.png');
         this.load.image('map_background', 'assets/images/background2.jpg');
+        this.load.image('rock', 'assets/images/rock.png');
+        this.load.image('sword', 'assets/images/sword.png');
+        this.load.image('axe', 'assets/images/axe.png');
 
         // this.load.spritesheet('atelle_idle_back', 'assets/sprites/atelle/idle_back.png', { frameWidth: 48, frameHeight: 34 });
         // this.load.spritesheet('atelle_idle_right', 'assets/sprites/atelle/idle_right.png', { frameWidth: 48, frameHeight: 34 });
@@ -25,10 +28,14 @@ class Level1Scene extends Phaser.Scene {
         this.load.spritesheet('kirin_idle_right', 'assets/sprites/kirin/idle_right.png', { frameWidth: 80, frameHeight: 67 });
         this.load.spritesheet('kirin_idle', 'assets/sprites/kirin/idle.png', { frameWidth: 80, frameHeight: 67 });
 
+        this.load.spritesheet('coin', 'assets/images/coin.png', { frameWidth: 16, frameHeight: 16 });
+
         this.moveCam = false;
     }
     
     create () {
+        let coins_collected = 0
+
         this.place = this.physics.add.image(590, 670, 'place');
         this.place.getBounds();
         this.place.body.setSize(this.place.body.height - 19, this.place.body.width, true);
@@ -63,8 +70,52 @@ class Level1Scene extends Phaser.Scene {
 
         this.add.image(600, 530, 'map_background').setScale(1.50).setOrigin(.5, .5);
 
-        this.cameras.main.setBounds(0, 0, 798 * 1.5, 718 * 1.5 - 5);
-        this.cursors = this.input.keyboard.createCursorKeys();
+        this.anims.create({
+            key: 'coin',
+            frames: this.anims.generateFrameNumbers('coin', { start: 0, end: 4 }),
+            frameRate: 7,
+            repeat: -1
+        });
+
+        this.coins = this.physics.add.staticGroup({
+            key: 'coin',
+            repeat: 2,
+            setXY: { x: 474, y: 600, stepY: 35 }
+        });
+
+        this.coins.children.iterate(function (child) {
+            child.setScale(1.2);
+            child.setSize(child.body.width, child.body.height+2, true);
+        });
+
+        this.coins.create(865, 570, 'coin').setScale(1.2);
+        this.coins.create(865, 605, 'coin').setScale(1.2);
+        this.coins.create(865, 640, 'coin').setScale(1.2);
+
+        this.coins.create(835, 870, 'coin').setScale(1.2);
+        this.coins.create(870, 870, 'coin').setScale(1.2);
+        this.coins.create(905, 870, 'coin').setScale(1.2);
+
+        this.coins.create(300, 770, 'coin').setScale(1.2);
+
+        this.coins.create(745, 385, 'coin').setScale(1.2);
+        this.coins.create(780, 385, 'coin').setScale(1.2);
+        this.coins.create(815, 385, 'coin').setScale(1.2);
+
+        this.coins.create(415, 253, 'coin').setScale(1.2);
+        this.coins.create(450, 253, 'coin').setScale(1.2);
+        this.coins.create(485, 253, 'coin').setScale(1.2);
+
+        this.coins.create(900, 223, 'coin').setScale(1.2);
+
+        this.coins.create(235, 175, 'coin').setScale(1.2);
+
+        this.coins.create(535, 80, 'coin').setScale(1.2);
+
+        this.weapons = this.physics.add.staticGroup();
+        this.weapons.create(237, 590, 'rock');
+        this.weapons.create(1132, 430, 'sword');
+        this.weapons.create(625, 378, 'axe');
 
         this.anims.create({
             key: 'atelle_idle',
@@ -101,22 +152,39 @@ class Level1Scene extends Phaser.Scene {
             repeat: -1
         });
 
-        this.atelle = this.physics.add.sprite(100, 550, 'atelle_idle').setScale(1.8);
+        this.atelle = this.physics.add.sprite(583, 783, 'atelle_idle').setScale(1.7);
         this.atelle.getBounds();
-        this.atelle.body.setSize(this.atelle.body.height - 19, this.atelle.body.width, true);
+        this.atelle.body.setSize(this.atelle.width, this.atelle.height, true);
         this.atelle.setCollideWorldBounds(true);
+        this.physics.add.overlap(this.atelle, this.coins, collectCoin, null, this);
+        this.physics.add.overlap(this.atelle, this.weapons, collectWeapon, null, this);
 
+        this.cameras.main.setBounds(0, 0, 798 * 1.5, 718 * 1.5 - 5);
         this.cameras.main.startFollow(this.atelle, true, 0.05, 0.05)
-        this.cameras.main.setZoom(1.5);
+        // this.cameras.main.setZoom(1.5);
 
+        this.cursors = this.input.keyboard.createCursorKeys();
         this.refreshButton = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+
+        function collectCoin (player, coin) {
+            coin.destroy(true); 
+            coins_collected++; 
+        }
+
+        function collectWeapon (player, weapon) {
+            weapon.destroy(true); 
+        }
     }
     
     update () {
+        this.coins.children.iterate(function (child) {
+            child.anims.play('coin', true);
+        });
+
         if (this.cursors.left.isDown || this.keyA.isDown) {
             this.atelle.body.setVelocityX(-200);
             this.atelle.anims.play('atelle_walk_left', true);
