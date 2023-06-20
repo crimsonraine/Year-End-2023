@@ -3,6 +3,12 @@ class FightScene extends Phaser.Scene {
         super({ key: 'FightScene' });
     }
 
+    init (data) {
+        this.hasRock = data.hasRock;
+        this.hasHammer = data.hasHammer;
+        this.hasSword = data.hasSword;
+    }
+
     preload () {
         this.load.image('battle_background', 'assets/images/battle_background1.png');
         this.load.image('textbox', 'assets/images/textbox.png');
@@ -62,42 +68,44 @@ class FightScene extends Phaser.Scene {
         this.sword_button.setInteractive();
         this.sword_button.on('pointerover', () => this.sword_button.setStyle({fill : '#ffffff'}));
         this.sword_button.on('pointerout', () => this.sword_button.setStyle({fill : '#5f3b39'}));
-        this.sword_button.on('pointerdown', () => {
-            this.sword_button.disableInteractive();
-            this.rock_button.disableInteractive();
-            this.hammer_button.disableInteractive();
-            this.run_button.disableInteractive();
-            this.atelleFight = true; 
-            attack(20, 'SWORD')
-            this.time.addEvent({
-                delay : 2000,
-                callback : () => {
-                    this.atelleFight = false; 
-                    this.asharraFight = true;
-                    asharra_attack();
-                    this.time.addEvent({
-                        delay : 2000,
-                        callback : () => {
-                            if (asharra_hp <= 0) {
-                                this.scene.start('WonFightScene');
+        if (this.hasSword) {
+            this.sword_button.on('pointerdown', () => {
+                this.sword_button.disableInteractive();
+                this.rock_button.disableInteractive();
+                this.hammer_button.disableInteractive();
+                this.run_button.disableInteractive();
+                this.atelleFight = true; 
+                attack(20, 'SWORD')
+                this.time.addEvent({
+                    delay : 2000,
+                    callback : () => {
+                        this.atelleFight = false; 
+                        this.asharraFight = true;
+                        asharra_attack();
+                        this.time.addEvent({
+                            delay : 2000,
+                            callback : () => {
+                                if (asharra_hp <= 0) {
+                                    this.scene.start('WonFightScene');
+                                }
+                                else if (atelle_hp <= 0) {
+                                    this.scene.start('LostFightScene');
+                                }
+                                else {
+                                    this.asharraFight = false;
+                                    dialogue.setText("What will ATELLE do?");
+                                    this.sword_button.setInteractive();
+                                    this.rock_button.setInteractive();
+                                    this.hammer_button.setInteractive();
+                                    this.run_button.setInteractive();
+                                }
                             }
-                            else if (atelle_hp <= 0) {
-                                this.scene.start('LostFightScene');
-                            }
-                            else {
-                                this.asharraFight = false;
-                                dialogue.setText("What will ATELLE do?");
-                                this.sword_button.setInteractive();
-                                this.rock_button.setInteractive();
-                                this.hammer_button.setInteractive();
-                                this.run_button.setInteractive();
-                            }
-                        }
-                    })
-                }
+                        })
+                    }
+                });
             });
-        });
-        
+        }
+
         /* ROCK ATTACK BUTTON */
         this.graphics.strokeRect(990, 500, 160, 60);
         this.graphics.fillRect(990, 501, 159, 59);
@@ -105,41 +113,43 @@ class FightScene extends Phaser.Scene {
         this.rock_button.setInteractive();
         this.rock_button.on('pointerover', () => this.rock_button.setStyle({fill : '#ffffff'}));
         this.rock_button.on('pointerout', () => this.rock_button.setStyle({fill : '#5f3b39'}));
-        this.rock_button.on('pointerdown', () => {
-            this.sword_button.disableInteractive();
-            this.rock_button.disableInteractive();
-            this.hammer_button.disableInteractive();
-            this.run_button.disableInteractive();
-            this.atelleFight = true; 
-            attack(5, 'ROCK')
-            this.time.addEvent({
-                delay : 2000,
-                callback : () => {
-                    this.atelleFight = false; 
-                    this.asharraFight = true;
-                    asharra_attack();
-                    this.time.addEvent({
-                        delay : 2000,
-                        callback : () => {
-                            if (asharra_hp <= 0) {
-                                this.scene.start('WonFightScene');
+        if (this.hasRock) {
+            this.rock_button.on('pointerdown', () => {
+                this.sword_button.disableInteractive();
+                this.rock_button.disableInteractive();
+                this.hammer_button.disableInteractive();
+                this.run_button.disableInteractive();
+                this.atelleFight = true; 
+                attack(5, 'ROCK')
+                this.time.addEvent({
+                    delay : 2000,
+                    callback : () => {
+                        this.atelleFight = false; 
+                        this.asharraFight = true;
+                        asharra_attack();
+                        this.time.addEvent({
+                            delay : 2000,
+                            callback : () => {
+                                if (asharra_hp <= 0) {
+                                    this.scene.start('WonFightScene');
+                                }
+                                else if (atelle_hp <= 0) {
+                                    this.scene.start('LostFightScene');
+                                }
+                                else {
+                                    this.asharraFight = false;
+                                    dialogue.setText("What will ATELLE do?");
+                                    this.sword_button.setInteractive();
+                                    this.rock_button.setInteractive();
+                                    this.hammer_button.setInteractive();
+                                    this.run_button.setInteractive();
+                                }
                             }
-                            else if (atelle_hp <= 0) {
-                                this.scene.start('LostFightScene');
-                            }
-                            else {
-                                this.asharraFight = false;
-                                dialogue.setText("What will ATELLE do?");
-                                this.sword_button.setInteractive();
-                                this.rock_button.setInteractive();
-                                this.hammer_button.setInteractive();
-                                this.run_button.setInteractive();
-                            }
-                        }
-                    })
-                },
+                        })
+                    },
+                });
             });
-        });
+        }
 
         /* HAMMER ATTACK BUTTON */
         this.graphics.strokeRect(990, 570, 160, 60);
@@ -148,41 +158,43 @@ class FightScene extends Phaser.Scene {
         this.hammer_button.setInteractive();
         this.hammer_button.on('pointerover', () => this.hammer_button.setStyle({fill : '#ffffff'}));
         this.hammer_button.on('pointerout', () => this.hammer_button.setStyle({fill : '#5f3b39'}));
-        this.hammer_button.on('pointerdown', () => {
-            this.sword_button.disableInteractive();
-            this.rock_button.disableInteractive();
-            this.hammer_button.disableInteractive();
-            this.run_button.disableInteractive();
-            this.atelleFight = true; 
-            attack(10, 'HAMMER')
-            this.time.addEvent({
-                delay : 2000,
-                callback : () => {
-                    this.atelleFight = false; 
-                    this.asharraFight = true;
-                    asharra_attack();
-                    this.time.addEvent({
-                        delay : 2000,
-                        callback : () => {
-                            if (asharra_hp <= 0) {
-                                this.scene.start('WonFightScene');
+        if (this.hasHammer) {
+            this.hammer_button.on('pointerdown', () => {
+                this.sword_button.disableInteractive();
+                this.rock_button.disableInteractive();
+                this.hammer_button.disableInteractive();
+                this.run_button.disableInteractive();
+                this.atelleFight = true; 
+                attack(10, 'HAMMER')
+                this.time.addEvent({
+                    delay : 2000,
+                    callback : () => {
+                        this.atelleFight = false; 
+                        this.asharraFight = true;
+                        asharra_attack();
+                        this.time.addEvent({
+                            delay : 2000,
+                            callback : () => {
+                                if (asharra_hp <= 0) {
+                                    this.scene.start('WonFightScene');
+                                }
+                                else if (atelle_hp <= 0) {
+                                    this.scene.start('LostFightScene');
+                                }
+                                else {
+                                    this.asharraFight = false;
+                                    dialogue.setText("What will ATELLE do?");
+                                    this.sword_button.setInteractive();
+                                    this.rock_button.setInteractive();
+                                    this.hammer_button.setInteractive();
+                                    this.run_button.setInteractive();
+                                }
                             }
-                            else if (atelle_hp <= 0) {
-                                this.scene.start('LostFightScene');
-                            }
-                            else {
-                                this.asharraFight = false;
-                                dialogue.setText("What will ATELLE do?");
-                                this.sword_button.setInteractive();
-                                this.rock_button.setInteractive();
-                                this.hammer_button.setInteractive();
-                                this.run_button.setInteractive();
-                            }
-                        }
-                    })
-                },
+                        })
+                    },
+                });
             });
-        });
+        }
 
         /* RUN AWAY BUTTON */
         this.graphics.strokeRect(820, 570, 160, 60);

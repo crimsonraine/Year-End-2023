@@ -32,10 +32,16 @@ class MapScene extends Phaser.Scene {
 
         this.load.spritesheet('coin', 'assets/images/coin.png', { frameWidth: 16, frameHeight: 16 });
 
+        this.load.audio('bg_music', 'assets/music/loading_adventure-beyond.mp3');
+
         this.moveCam = false;
     }
     
     create () {
+        let music = this.sound.add('bg_music');
+        music.setLoop(true);
+        music.play();
+
         this.destination = [600,20];
         let coins_collected = 0;
 
@@ -155,10 +161,15 @@ class MapScene extends Phaser.Scene {
 
         this.coins.create(535, 80, 'coin').setScale(1.2);
 
-        this.weapons = this.physics.add.staticGroup();
-        this.weapons.create(237, 590, 'rock');
-        this.weapons.create(1132, 430, 'sword');
-        this.weapons.create(625, 378, 'axe');
+        if (this.startBeforeFight) {
+            this.weapons = this.physics.add.staticGroup();
+            this.rock = this.weapons.create(237, 590, 'rock');
+            this.sword = this.weapons.create(1132, 430, 'sword');
+            this.hammer = this.weapons.create(625, 378, 'axe');
+            this.hasRock = false;
+            this.hasSword = false;
+            this.hasHammer = false;
+        }
 
         this.anims.create({
             key: 'atelle_idle',
@@ -241,7 +252,7 @@ class MapScene extends Phaser.Scene {
 
         this.asharra = this.physics.add.sprite(412, 70, 'asharra_idle').setScale(2);
         this.asharra.getBounds();
-        this.asharra.body.setSize(this.asharra.width, this.asharra.height, true);
+        this.asharra.body.setSize(this.asharra.width * 1.8, this.asharra.height * 0.9, true);
 
         this.cameras.main.setBounds(2, 0, 590 *2 + 15, 530*2 + 10);
         this.cameras.main.startFollow(this.atelle, true, 0.05, 0.05)
@@ -261,7 +272,16 @@ class MapScene extends Phaser.Scene {
         }
 
         function collectWeapon (player, weapon) {
-            weapon.destroy(true); 
+            weapon.destroy(true);
+            if (weapon == this.rock) {
+                this.hasRock = true;
+            }
+            else if (weapon == this.hammer) {
+                this.hasHammer = true;
+            }
+            else if (weapon == this.sword) {
+                this.hasSword = true; 
+            }       
         }
     }
     
@@ -276,7 +296,7 @@ class MapScene extends Phaser.Scene {
 
         if (this.physics.overlap(this.atelle, this.asharra) && this.keyF.isDown) { 
             if (this.startBeforeFight) {
-                this.scene.start('BeforeFightScene');
+                this.scene.start('BeforeFightScene', {hasRock : this.hasRock, hasHammer : this.hasHammer, hasSword : this.hasSword});
             }
             else {
                 this.scene.start('EncounterScene');

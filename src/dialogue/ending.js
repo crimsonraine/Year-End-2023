@@ -53,9 +53,9 @@ class EndingScene extends Phaser.Scene {
                 this.dialogModal.setText(list[i], true);
                 i += 1;
             }
-            // else if (i == 4) {
-            //     this.scene.start('NewTitleScene');
-            // }
+            else if (i == 4) {
+                this.scene.start('TitleScene');
+            }
             else {
                 this.dialogModal.setText(list[i], true);
                 i += 1;
