@@ -23,7 +23,7 @@ const config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },
-            debug: false
+            debug: true
         }
     },
     scale: {
@@ -33,11 +33,11 @@ const config = {
     },
     scene:
         [
-        TitleScene,
-        // PracticeScene,
-        SelectionScene,
-        OpeningScene,
-        GreetingScene,
+        // TitleScene,
+        // // PracticeScene,
+        // SelectionScene,
+        // OpeningScene,
+        // GreetingScene,
         MapScene,
         EncounterScene,
         BeforeFightScene,

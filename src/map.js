@@ -74,7 +74,7 @@ class MapScene extends Phaser.Scene {
         this.rectangles.add(this.add.rectangle(700, 0, 600, 120));
         this.rectangles.add(this.add.rectangle(620, 0, 175, 400));
         this.rectangles.add(this.add.rectangle(1070, 90, 245, 190));
-        this.rectangles.add(this.add.rectangle(1100, 300, 90, 95));
+        //this.rectangles.add(this.add.rectangle(1100, 300, 90, 95)); aousdhfoajsldfjlksjdflkjslk
         this.rectangles.add(this.add.rectangle(1150, 600, 100, 70));
         this.rectangles.add(this.add.rectangle(360, 690, 140, 80));
         this.rectangles.add(this.add.rectangle(650, 690, 140, 80));
@@ -99,7 +99,10 @@ class MapScene extends Phaser.Scene {
         this.rectangles.add(this.add.rectangle(1010, 575, 40, 20));
         this.rectangles.add(this.add.rectangle(920, 575, 40, 20));
         this.rectangles.add(this.add.rectangle(1090, 630, 20, 120));
-        this.rectangles.add(this.add.rectangle(1020, 302, 360, 2));
+        //this.rectangles.add(this.add.rectangle(1020, 302, 360, 2)); aishdoifjaksjdiofaeosdfioa
+        this.rectangles.add(this.add.rectangle(960, 302, 215, 2));
+        this.rectangles.add(this.add.rectangle(1170, 302, 50, 2));
+
         this.rectangles.add(this.add.rectangle(425, 460, 150, 20));
         this.rectangles.add(this.add.rectangle(610, 460, 110, 20));
         this.rectangles.add(this.add.rectangle(610, 527, 220, 20));
