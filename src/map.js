@@ -54,16 +54,12 @@ class Level1Scene extends Phaser.Scene {
 
 
 
-
-
-
-
-    
-        this.physics.world.setBounds( 0, 0, 798 * 1.5, 718*1.5 - 5);
+        this.physics.world.setBounds(50, 0, 590 *2 + 20, 530*2 + 55);
 
         this.add.image(600, 530, 'map_background').setScale(1.50).setOrigin(.5, .5);
 
-        this.cameras.main.setBounds(0, 0, 798 * 1.5, 718 * 1.5 - 5);
+        this.cameras.main.setBounds(2, 0, 590 *2 + 15, 530*2 + 15);
+
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.anims.create({
