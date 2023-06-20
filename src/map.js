@@ -1,4 +1,4 @@
-class Level1Scene extends Phaser.Scene {
+class MapScene extends Phaser.Scene {
     constructor () {
         super({key: 'MapScene'});
     }
@@ -170,32 +170,31 @@ class Level1Scene extends Phaser.Scene {
 
 
 
-
         
 
 
 
 
 
+        this.cameras.main.setBounds(0, 0, 798 * 1.5, 718 * 1.5 - 5);
+        this.cameras.main.startFollow(this.atelle, true, 0.05, 0.05)
+        this.cameras.main.setZoom(1.5);
 
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.refreshButton = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    
+        function collectCoin (player, coin) {
+            coin.destroy(true); 
+            coins_collected++; 
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-
-
+        function collectWeapon (player, weapon) {
+            weapon.destroy(true); 
+        }
     }
     
     update () {
@@ -235,4 +234,4 @@ class Level1Scene extends Phaser.Scene {
     }
 } 
 
-export default Level1Scene
+export default MapScene
