@@ -97,7 +97,8 @@ this.text = this.scene.make.text({
   y,
   text,
   style: {
-    fontSize: '35px',
+    fontFamily: 'Press-Start-2P',
+    fontSize: '30px',
     color : '#3b2726',
     wordWrap: { width: this._getGameWidth() - (this.padding * 2) - 25 },
   }

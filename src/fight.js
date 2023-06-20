@@ -78,11 +78,11 @@ class FightScene extends Phaser.Scene {
                     this.time.addEvent({
                         delay : 2000,
                         callback : () => {
-                            if (asharra_hp == 0) {
-                                this.scene.start('Level1Scene', { winner : 'atelle' });
+                            if (asharra_hp <= 0) {
+                                this.scene.start('WonFightScene');
                             }
-                            else if (atelle_hp == 0) {
-                                this.scene.start('Level1Scene', { winner : 'asharra' });
+                            else if (atelle_hp <= 0) {
+                                this.scene.start('LostFightScene');
                             }
                             else {
                                 this.asharraFight = false;
@@ -121,11 +121,11 @@ class FightScene extends Phaser.Scene {
                     this.time.addEvent({
                         delay : 2000,
                         callback : () => {
-                            if (asharra_hp == 0) {
-                                this.scene.start('Level1Scene', { winner : 'atelle' });
+                            if (asharra_hp <= 0) {
+                                this.scene.start('WonFightScene');
                             }
-                            else if (atelle_hp == 0) {
-                                this.scene.start('Level1Scene', { winner : 'asharra' });
+                            else if (atelle_hp <= 0) {
+                                this.scene.start('LostFightScene');
                             }
                             else {
                                 this.asharraFight = false;
@@ -164,11 +164,11 @@ class FightScene extends Phaser.Scene {
                     this.time.addEvent({
                         delay : 2000,
                         callback : () => {
-                            if (asharra_hp == 0) {
-                                this.scene.start('Level1Scene', { winner : 'atelle' });
+                            if (asharra_hp <= 0) {
+                                this.scene.start('WonFightScene');
                             }
-                            else if (atelle_hp == 0) {
-                                this.scene.start('Level1Scene', { winner : 'asharra' });
+                            else if (atelle_hp <= 0) {
+                                this.scene.start('LostFightScene');
                             }
                             else {
                                 this.asharraFight = false;
@@ -191,7 +191,7 @@ class FightScene extends Phaser.Scene {
         this.run_button.setInteractive();
         this.run_button.on('pointerover', () => this.run_button.setStyle({fill : '#ffffff'}));
         this.run_button.on('pointerout', () => this.run_button.setStyle({fill : '#5f3b39'}));
-        this.run_button.on('pointerdown', () => this.scene.start('Level1Scene', { winner : 'atelle_ran' }));
+        this.run_button.on('pointerdown', () => this.scene.start('LostFightScene'));
 
         this.anims.create({
             key: 'atelle_idle',
