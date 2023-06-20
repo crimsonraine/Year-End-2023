@@ -58,7 +58,7 @@ class MapScene extends Phaser.Scene {
         this.arrow.setDepth(1);
 
         this.rectangles = this.physics.add.staticGroup();
-        this.rectangles.add(this.add.rectangle(100, 100, 350, 470));
+        //this.rectangles.add(this.add.rectangle(100, 100, 350, 470));
 
         // this.add.rectangle(100, 100, 350, 470, 0xFFA701);
         // this.add.rectangle(60, 500, 270, 600, 0xFFA701);
