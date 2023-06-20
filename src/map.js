@@ -58,7 +58,7 @@ class Level1Scene extends Phaser.Scene {
 
         this.add.image(600, 530, 'map_background').setScale(1.50).setOrigin(.5, .5);
 
-        this.cameras.main.setBounds(2, 0, 590 *2 + 15, 530*2 + 15);
+        this.cameras.main.setBounds(2, 0, 590 *2 + 15, 530*2 + 10);
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
