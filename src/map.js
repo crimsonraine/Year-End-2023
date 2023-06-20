@@ -58,15 +58,7 @@ class Level1Scene extends Phaser.Scene {
         this.add.rectangle(500, 105, 427, 2, 0xFFA701);
 
 
-
-
-
-
-
-
-
-    
-        this.physics.world.setBounds( 0, 0, 798 * 1.5, 718*1.5 - 5);
+        this.physics.world.setBounds(50, 0, 590 *2 + 20, 530*2 + 55);
 
         this.add.image(600, 530, 'map_background').setScale(1.50).setOrigin(.5, .5);
 
@@ -169,22 +161,9 @@ class Level1Scene extends Phaser.Scene {
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-
-        function collectCoin (player, coin) {
-            coin.destroy(true); 
-            coins_collected++; 
-        }
-
-        function collectWeapon (player, weapon) {
-            weapon.destroy(true); 
-        }
     }
     
     update () {
-        this.coins.children.iterate(function (child) {
-            child.anims.play('coin', true);
-        });
-
         if (this.cursors.left.isDown || this.keyA.isDown) {
             this.atelle.body.setVelocityX(-200);
             this.atelle.anims.play('atelle_walk_left', true);
