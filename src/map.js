@@ -11,6 +11,7 @@ class MapScene extends Phaser.Scene {
     preload () {
         this.load.image('char', 'assets/sprites/placeholder.png');
         this.load.image('map_background', 'assets/images/background2.jpg');
+        this.load.image('guide', 'assets/images/direction_arrow.png');
 
         // this.load.spritesheet('atelle_idle_back', 'assets/sprites/atelle/idle_back.png', { frameWidth: 48, frameHeight: 34 });
         // this.load.spritesheet('atelle_idle_right', 'assets/sprites/atelle/idle_right.png', { frameWidth: 48, frameHeight: 34 });
@@ -35,9 +36,6 @@ class MapScene extends Phaser.Scene {
         this.place.getBounds();
         this.place.body.setSize(this.place.body.height - 19, this.place.body.width, true);
         this.place.setCollideWorldBounds(true);
-
-
-
 
         this.physics.world.setBounds(50, 0, 590 *2 + 20, 530*2 + 55);
 
@@ -154,38 +152,6 @@ class MapScene extends Phaser.Scene {
         this.add.rectangle(350, 415, 20, 110, 0xFFA701);
         this.add.rectangle(655, 415, 20, 110, 0xFFA701);
         this.add.rectangle(825, 330, 20, 50, 0xFFA701);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-        this.cameras.main.setBounds(0, 0, 798 * 1.5, 718 * 1.5 - 5);
-        this.cameras.main.startFollow(this.atelle, true, 0.05, 0.05)
-        this.cameras.main.setZoom(1.5);
-
-        this.cursors = this.input.keyboard.createCursorKeys();
-        this.refreshButton = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-        this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     
         function collectCoin (player, coin) {
             coin.destroy(true); 
