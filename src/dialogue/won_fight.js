@@ -31,7 +31,7 @@ class WonFightScene extends Phaser.Scene {
         next_button.on('pointerout', () => next_button.setTint(0xffffff));
         next_button.on('pointerdown', () => {
             if (i == 2) {
-                this.scene.start('MapScene');
+                this.scene.start('EndingScene');
             }
             else {
                 this.dialogModal.setText(list[i], true);

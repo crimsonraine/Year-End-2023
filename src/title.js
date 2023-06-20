@@ -15,7 +15,7 @@ class TitleScene extends Phaser.Scene
 
     create () {
         // used for testing specific scenes
-        // this.scene.start('BeforeFightScene')
+        // this.scene.start('MapScene')
 
         let music = this.sound.add('bg_music');
         music.setLoop(true);

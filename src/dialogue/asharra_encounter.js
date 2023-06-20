@@ -36,7 +36,7 @@ class EncounterScene extends Phaser.Scene {
         next_button.on('pointerout', () => next_button.setTint(0xffffff));
         next_button.on('pointerdown', () => {
             if (i == 7) {
-                this.scene.start('MapScene');
+                this.scene.start('MapScene', {startBeforeFight : true});
             }
             else {
                 this.dialogModal.setText(list[i], true);
