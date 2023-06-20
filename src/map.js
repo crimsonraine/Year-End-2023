@@ -37,9 +37,8 @@ class MapScene extends Phaser.Scene {
     }
     
     create () {
-        let coins_collected = 0; 
-
         this.destination = [600,20];
+        let coins_collected = 0;
 
         this.place = this.physics.add.image(590, 670, 'place');
         this.place.getBounds();
@@ -53,61 +52,61 @@ class MapScene extends Phaser.Scene {
         this.arrow = this.add.sprite(0, 0, 'guide').setScale(1.5);
         this.arrow.setDepth(1);
 
-        // this.add.rectangle(100, 100, 350, 470, 0xFFA701);
-        // this.add.rectangle(60, 500, 270, 600, 0xFFA701);
-        // this.add.rectangle(650, 490, 150, 80, 0xFFA701);
-        // this.add.rectangle(360, 490, 150, 80, 0xFFA701);
-        // this.add.rectangle(900, 610, 210, 80, 0xFFA701);
-        // this.add.rectangle(500, 700, 400, 80, 0xFFA701);
-        // this.add.rectangle(780, 300, 75, 150, 0xFFA701);
-        // this.add.rectangle(325, 376, 70, 70, 0xFFA701);
-        // this.add.rectangle(600, 376, 130, 70, 0xFFA701);
-        // this.add.rectangle(635, 415, 215, 90, 0xFFA701);
-        // this.add.rectangle(1068, 545, 73, 70, 0xFFA701);
-        // this.add.rectangle(1150, 380, 92, 60, 0xFFA701);
-        // this.add.rectangle(1110, 90, 92, 68, 0xFFA701);
-        this.add.rectangle(0, 0, 389, 2200, 0xFFA701);
-        this.add.rectangle(200, 0, 120, 107, 0xFFA701);
-        this.add.rectangle(200, 413, 120, 235, 0xFFA701);
-        this.add.rectangle(200, 1010, 2000, 235, 0xFFA701);
-        this.add.rectangle(700, 0, 600, 120, 0xFFA701);
-        this.add.rectangle(620, 0, 175, 400, 0xFFA701);
-        this.add.rectangle(1070, 90, 245, 190, 0xFFA701);
-        this.add.rectangle(1100, 300, 100, 100, 0xFFA701);
-        this.add.rectangle(1150, 600, 100, 70, 0xFFA701);
-        this.add.rectangle(360, 690, 140, 80, 0xFFA701);
-        this.add.rectangle(650, 690, 140, 80, 0xFFA701);
-        this.add.rectangle(630, 600, 220, 130, 0xFFA701);
-        this.add.rectangle(320, 570, 80, 90, 0xFFA701);
-        this.add.rectangle(1064, 750, 80, 80, 0xFFA701);
-        this.add.rectangle(900, 810, 200, 80, 0xFFA701);
-        this.add.rectangle(1017, 700, 165, 20, 0xFFA701);
-        this.add.rectangle(850, 700, 40, 20, 0xFFA701);
-        this.add.rectangle(825, 570, 20, 275, 0xFFA701);
-        this.add.rectangle(777, 305, 70, 80, 0xFFA701);
-        this.add.rectangle(777, 350, 70, 2, 0xFFA701);
-        this.add.rectangle(777, 500, 70, 165, 0xFFA701);
-        this.add.rectangle(500, 305, 450, 2, 0xFFA701);
-        this.add.rectangle(500, 350, 300, 2, 0xFFA701);
-        this.add.rectangle(280, 415, 20, 210, 0xFFA701);
-        this.add.rectangle(730, 330, 20, 50, 0xFFA701);
-        this.add.rectangle(730, 480, 20, 120, 0xFFA701);
-        this.add.rectangle(957, 350, 90, 2, 0xFFA701);
-        this.add.rectangle(900, 475, 20, 218, 0xFFA701);
-        this.add.rectangle(1020, 475, 20, 218, 0xFFA701);
-        this.add.rectangle(1010, 575, 40, 20, 0xFFA701);
-        this.add.rectangle(920, 575, 40, 20, 0xFFA701);
-        this.add.rectangle(1090, 630, 20, 120, 0xFFA701);
-        this.add.rectangle(1020, 302, 360, 2, 0xFFA701);
-        this.add.rectangle(425, 460, 150, 20, 0xFFA701);
-        this.add.rectangle(610, 460, 110, 20, 0xFFA701);
-        this.add.rectangle(610, 527, 220, 20, 0xFFA701);
-        this.add.rectangle(340, 527, 145, 20, 0xFFA701);
-        this.add.rectangle(490, 527, 30, 50, 0xFFA701);
-        this.add.rectangle(423, 527, 30, 50, 0xFFA701);
-        this.add.rectangle(350, 415, 20, 110, 0xFFA701);
-        this.add.rectangle(655, 415, 20, 110, 0xFFA701);
-        this.add.rectangle(825, 330, 20, 50, 0xFFA701);
+        // // this.add.rectangle(100, 100, 350, 470, 0xFFA701);
+        // // this.add.rectangle(60, 500, 270, 600, 0xFFA701);
+        // // this.add.rectangle(650, 490, 150, 80, 0xFFA701);
+        // // this.add.rectangle(360, 490, 150, 80, 0xFFA701);
+        // // this.add.rectangle(900, 610, 210, 80, 0xFFA701);
+        // // this.add.rectangle(500, 700, 400, 80, 0xFFA701);
+        // // this.add.rectangle(780, 300, 75, 150, 0xFFA701);
+        // // this.add.rectangle(325, 376, 70, 70, 0xFFA701);
+        // // this.add.rectangle(600, 376, 130, 70, 0xFFA701);
+        // // this.add.rectangle(635, 415, 215, 90, 0xFFA701);
+        // // this.add.rectangle(1068, 545, 73, 70, 0xFFA701);
+        // // this.add.rectangle(1150, 380, 92, 60, 0xFFA701);
+        // // this.add.rectangle(1110, 90, 92, 68, 0xFFA701);
+        // this.add.rectangle(0, 0, 389, 2200, 0xFFA701);
+        // this.add.rectangle(200, 0, 120, 107, 0xFFA701);
+        // this.add.rectangle(200, 413, 120, 235, 0xFFA701);
+        // this.add.rectangle(200, 1010, 2000, 235, 0xFFA701);
+        // this.add.rectangle(700, 0, 600, 120, 0xFFA701);
+        // this.add.rectangle(620, 0, 175, 400, 0xFFA701);
+        // this.add.rectangle(1070, 90, 245, 190, 0xFFA701);
+        // this.add.rectangle(1100, 300, 100, 100, 0xFFA701);
+        // this.add.rectangle(1150, 600, 100, 70, 0xFFA701);
+        // this.add.rectangle(360, 690, 140, 80, 0xFFA701);
+        // this.add.rectangle(650, 690, 140, 80, 0xFFA701);
+        // this.add.rectangle(630, 600, 220, 130, 0xFFA701);
+        // this.add.rectangle(320, 570, 80, 90, 0xFFA701);
+        // this.add.rectangle(1064, 750, 80, 80, 0xFFA701);
+        // this.add.rectangle(900, 810, 200, 80, 0xFFA701);
+        // this.add.rectangle(1017, 700, 165, 20, 0xFFA701);
+        // this.add.rectangle(850, 700, 40, 20, 0xFFA701);
+        // this.add.rectangle(825, 570, 20, 275, 0xFFA701);
+        // this.add.rectangle(777, 305, 70, 80, 0xFFA701);
+        // this.add.rectangle(777, 350, 70, 2, 0xFFA701);
+        // this.add.rectangle(777, 500, 70, 165, 0xFFA701);
+        // this.add.rectangle(500, 305, 450, 2, 0xFFA701);
+        // this.add.rectangle(500, 350, 300, 2, 0xFFA701);
+        // this.add.rectangle(280, 415, 20, 210, 0xFFA701);
+        // this.add.rectangle(730, 330, 20, 50, 0xFFA701);
+        // this.add.rectangle(730, 480, 20, 120, 0xFFA701);
+        // this.add.rectangle(957, 350, 90, 2, 0xFFA701);
+        // this.add.rectangle(900, 475, 20, 218, 0xFFA701);
+        // this.add.rectangle(1020, 475, 20, 218, 0xFFA701);
+        // this.add.rectangle(1010, 575, 40, 20, 0xFFA701);
+        // this.add.rectangle(920, 575, 40, 20, 0xFFA701);
+        // this.add.rectangle(1090, 630, 20, 120, 0xFFA701);
+        // this.add.rectangle(1020, 302, 360, 2, 0xFFA701);
+        // this.add.rectangle(425, 460, 150, 20, 0xFFA701);
+        // this.add.rectangle(610, 460, 110, 20, 0xFFA701);
+        // this.add.rectangle(610, 527, 220, 20, 0xFFA701);
+        // this.add.rectangle(340, 527, 145, 20, 0xFFA701);
+        // this.add.rectangle(490, 527, 30, 50, 0xFFA701);
+        // this.add.rectangle(423, 527, 30, 50, 0xFFA701);
+        // this.add.rectangle(350, 415, 20, 110, 0xFFA701);
+        // this.add.rectangle(655, 415, 20, 110, 0xFFA701);
+        // this.add.rectangle(825, 330, 20, 50, 0xFFA701);
 
         this.anims.create({
             key: 'coin',
@@ -233,7 +232,6 @@ class MapScene extends Phaser.Scene {
         this.asharra.body.setSize(this.asharra.width, this.asharra.height, true);
 
         this.cameras.main.setBounds(2, 0, 590 *2 + 15, 530*2 + 10);
-        // this.cameras.main.setBounds(0, 0, 798 * 1.5, 718 * 1.5 - 5);
         this.cameras.main.startFollow(this.atelle, true, 0.05, 0.05)
         this.cameras.main.setZoom(1.5);
 
