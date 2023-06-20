@@ -29,6 +29,8 @@ class Level1Scene extends Phaser.Scene {
     }
     
     create () {
+        this.destination = [600,20];
+
         this.place = this.physics.add.image(590, 670, 'place');
         this.place.getBounds();
         this.place.body.setSize(this.place.body.height - 19, this.place.body.width, true);
@@ -84,6 +86,9 @@ class Level1Scene extends Phaser.Scene {
         this.atelle.getBounds();
         this.atelle.body.setSize(this.atelle.body.height - 19, this.atelle.body.width, true);
         this.atelle.setCollideWorldBounds(true);
+
+        this.arrow = this.add.sprite(0, 0, 'guide').setScale(1.5);
+        this.arrow.setDepth(1);
 
         this.cameras.main.startFollow(this.atelle, true, 0.05, 0.05)
         this.cameras.main.setZoom(1.5);
@@ -219,6 +224,14 @@ class Level1Scene extends Phaser.Scene {
             this.atelle.body.setVelocityY(0);
             this.atelle.anims.play('atelle_idle', true);
         }
+                
+        let dx = this.destination[0] - this.arrow.x;
+        let dy = this.destination[1] - this.arrow.y;
+        let angle = Phaser.Math.Angle.Between(0, 0, dx, dy);
+        this.arrow.rotation = angle;
+
+        this.arrow.x = this.atelle.body.x - 40;
+        this.arrow.y = this.atelle.body.y - 15;
     }
 } 
 
