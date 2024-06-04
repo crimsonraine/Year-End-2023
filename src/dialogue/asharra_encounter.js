@@ -22,7 +22,7 @@ class EncounterScene extends Phaser.Scene {
         let list = [
             "ASHARRA: Who goes there?", 
             "ATELLE: Hello! I'm looking to go to The Town of Vrillage.", 
-            "ASHARRA: Is that so? I'm afraid you don't even belong there. The Town of Vrillage is my home.", 
+            "ASHARRA: Is that so? I'm afraid you are not welcome there. The Town of Vrillage is my home.", 
             "ATELLE: Please let me cross, I need to get back home.",
             "ASHARRA: I don't think so. Beat me in a fight and I'll let you through.",
             "KIRIN: Go find a weapon to fight them!",

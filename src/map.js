@@ -32,10 +32,16 @@ class MapScene extends Phaser.Scene {
 
         this.load.spritesheet('coin', 'assets/images/coin.png', { frameWidth: 16, frameHeight: 16 });
 
+        this.load.audio('bg_music', 'assets/music/loading_adventure-beyond.mp3');
+
         this.moveCam = false;
     }
     
     create () {
+        let music = this.sound.add('bg_music');
+        music.setLoop(true);
+        music.play();
+
         this.destination = [600,20];
         let coins_collected = 0;
 
@@ -52,7 +58,7 @@ class MapScene extends Phaser.Scene {
         this.arrow.setDepth(1);
 
         this.rectangles = this.physics.add.staticGroup();
-        this.rectangles.add(this.add.rectangle(100, 100, 350, 470));
+        //this.rectangles.add(this.add.rectangle(100, 100, 350, 470));
 
         // this.add.rectangle(100, 100, 350, 470, 0xFFA701);
         // this.add.rectangle(60, 500, 270, 600, 0xFFA701);
@@ -74,7 +80,7 @@ class MapScene extends Phaser.Scene {
         this.rectangles.add(this.add.rectangle(700, 0, 600, 120));
         this.rectangles.add(this.add.rectangle(620, 0, 175, 400));
         this.rectangles.add(this.add.rectangle(1070, 90, 245, 190));
-        this.rectangles.add(this.add.rectangle(1100, 300, 90, 95));
+        //this.rectangles.add(this.add.rectangle(1100, 300, 90, 95)); aousdhfoajsldfjlksjdflkjslk
         this.rectangles.add(this.add.rectangle(1150, 600, 100, 70));
         this.rectangles.add(this.add.rectangle(360, 690, 140, 80));
         this.rectangles.add(this.add.rectangle(650, 690, 140, 80));
@@ -99,7 +105,10 @@ class MapScene extends Phaser.Scene {
         this.rectangles.add(this.add.rectangle(1010, 575, 40, 20));
         this.rectangles.add(this.add.rectangle(920, 575, 40, 20));
         this.rectangles.add(this.add.rectangle(1090, 630, 20, 120));
-        this.rectangles.add(this.add.rectangle(1020, 302, 360, 2));
+        //this.rectangles.add(this.add.rectangle(1020, 302, 360, 2)); aishdoifjaksjdiofaeosdfioa
+        this.rectangles.add(this.add.rectangle(960, 302, 215, 2));
+        this.rectangles.add(this.add.rectangle(1170, 302, 50, 2));
+
         this.rectangles.add(this.add.rectangle(425, 460, 150, 20));
         this.rectangles.add(this.add.rectangle(610, 460, 110, 20));
         this.rectangles.add(this.add.rectangle(610, 527, 220, 20));
@@ -152,10 +161,15 @@ class MapScene extends Phaser.Scene {
 
         this.coins.create(535, 80, 'coin').setScale(1.2);
 
-        this.weapons = this.physics.add.staticGroup();
-        this.weapons.create(237, 590, 'rock');
-        this.weapons.create(1132, 430, 'sword');
-        this.weapons.create(625, 378, 'axe');
+        if (this.startBeforeFight) {
+            this.weapons = this.physics.add.staticGroup();
+            this.rock = this.weapons.create(237, 590, 'rock');
+            this.sword = this.weapons.create(1132, 430, 'sword');
+            this.hammer = this.weapons.create(625, 378, 'axe');
+            this.hasRock = false;
+            this.hasSword = false;
+            this.hasHammer = false;
+        }
 
         this.anims.create({
             key: 'atelle_idle',
@@ -238,7 +252,7 @@ class MapScene extends Phaser.Scene {
 
         this.asharra = this.physics.add.sprite(412, 70, 'asharra_idle').setScale(2);
         this.asharra.getBounds();
-        this.asharra.body.setSize(this.asharra.width, this.asharra.height, true);
+        this.asharra.body.setSize(this.asharra.width * 1.8, this.asharra.height * 0.9, true);
 
         this.cameras.main.setBounds(2, 0, 590 *2 + 15, 530*2 + 10);
         this.cameras.main.startFollow(this.atelle, true, 0.05, 0.05)
@@ -258,7 +272,16 @@ class MapScene extends Phaser.Scene {
         }
 
         function collectWeapon (player, weapon) {
-            weapon.destroy(true); 
+            weapon.destroy(true);
+            if (weapon == this.rock) {
+                this.hasRock = true;
+            }
+            else if (weapon == this.hammer) {
+                this.hasHammer = true;
+            }
+            else if (weapon == this.sword) {
+                this.hasSword = true; 
+            }       
         }
     }
     
@@ -273,7 +296,7 @@ class MapScene extends Phaser.Scene {
 
         if (this.physics.overlap(this.atelle, this.asharra) && this.keyF.isDown) { 
             if (this.startBeforeFight) {
-                this.scene.start('BeforeFightScene');
+                this.scene.start('BeforeFightScene', {hasRock : this.hasRock, hasHammer : this.hasHammer, hasSword : this.hasSword});
             }
             else {
                 this.scene.start('EncounterScene');

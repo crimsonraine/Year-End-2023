@@ -34,7 +34,6 @@ const config = {
     scene:
         [
         TitleScene,
-        // PracticeScene,
         SelectionScene,
         OpeningScene,
         GreetingScene,
