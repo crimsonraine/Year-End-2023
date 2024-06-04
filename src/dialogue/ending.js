@@ -39,7 +39,10 @@ class EndingScene extends Phaser.Scene {
             "KIRIN: Here we are, the gates of The Town of Vrillage. Hopefully, you can find the answers you are looking for.", 
             "ATELLE: Thank you for all your help.", 
             "KIRIN: Anytime.",
-            "ATELLE: Well, here goes nothing."
+            "ATELLE: Well, here goes nothing.",
+            "And so begins the journey of our hero into the world of...",
+            "Sonapath!"
+
         ]
         let i = 0;
 
@@ -53,9 +56,9 @@ class EndingScene extends Phaser.Scene {
                 this.dialogModal.setText(list[i], true);
                 i += 1;
             }
-            // else if (i == 4) {
-            //     this.scene.start('NewTitleScene');
-            // }
+            else if (i == 4) {
+                this.atelle.visible = false;
+            }
             else {
                 this.dialogModal.setText(list[i], true);
                 i += 1;
