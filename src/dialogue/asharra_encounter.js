@@ -23,7 +23,7 @@ class EncounterScene extends Phaser.Scene {
 
         let list = [
             "ASHARRA: Who goes there?", 
-            `${playerName} : Hello! I'm looking to go to The Town of Vrillage.`, 
+            `${playerName}: Hello! I'm looking to go to The Town of Vrillage.`, 
             "ASHARRA: Is that so? I'm afraid you don't even belong there. The Town of Vrillage is my home.", 
             `${playerName}: Please let me cross, I need to get back home.`,
             "ASHARRA: I don't think so. Beat me in a fight and I'll let you through.",
