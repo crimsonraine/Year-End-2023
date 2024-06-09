@@ -19,9 +19,11 @@ class WonFightScene extends Phaser.Scene {
 
         this.dialogModal.init();
         
+        const playerName = this.game.playerName;
+
         let list = [
             "ASHARRA: You have defeated me, so you may pass.",
-            "ATELLE: Phew."
+            `${playerName}: Phew.`
         ]
         let i = 0;
 

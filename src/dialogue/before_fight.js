@@ -19,9 +19,11 @@ class BeforeFightScene extends Phaser.Scene {
 
         this.dialogModal.init();
         
+        const playerName = this.game.playerName;
+
         let list = [
             "ASHARRA: Who goes there?", 
-            "ATELLE: I've returned, let's fight.", 
+            `${playerName}: I've returned, let's fight.`, 
             "ASHARRA: Here we go...", 
         ]
         let i = 0;

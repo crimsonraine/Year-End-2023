@@ -19,11 +19,13 @@ class GreetingScene extends Phaser.Scene {
         this.atelle.visible = false;
 
         this.dialogModal.init();
+        const playerName = this.game.playerName;
+
         
         let list = [
-            "ATELLE: Where...am I?", 
-            "ATELLE: How did I get here?", 
-            "ATELLE: This doesn't look like home...", 
+            `${playerName}: Where...am I?`, 
+            `${playerName}: How did I get here?`, 
+            `${playerName}: This doesn't look like home...`, 
         ]
         let i = 0;
 

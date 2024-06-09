@@ -18,14 +18,16 @@ class GreetingScene extends Phaser.Scene {
 
         this.dialogModal.init();
         
+        const playerName = this.game.playerName;
+
         let list = [
             "GUARD: Greetings! What brings you to this part of the forest?", 
-            "ATELLE: I think I'm lost.", 
+            `${playerName}: I think I'm lost.`, 
             "GUARD: Is that so? Where are you supposed to be?", 
-            "ATELLE: I don’t know. What’s the nearest town?",
+            `${playerName}: I don’t know. What’s the nearest town?`,
             "GUARD: That would be The Town of Vrillage. I can take you there if you’d like.",
-            "ATELLE: Really? Thanks!",
-            "ATELLE: What's your name again?",
+            `${playerName}: Really? Thanks!`,
+            `${playerName}: What's your name again?`,
             "KIRIN: Kirin.",
         ]
         let i = 0;

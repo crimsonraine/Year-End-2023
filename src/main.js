@@ -33,11 +33,11 @@ const config = {
     },
     scene:
         [
-        // TitleScene,
-        // // PracticeScene,
-        // SelectionScene,
-        // OpeningScene,
-        // GreetingScene,
+        TitleScene,
+        // PracticeScene,
+        SelectionScene,
+        OpeningScene,
+        GreetingScene,
         MapScene,
         EncounterScene,
         BeforeFightScene,

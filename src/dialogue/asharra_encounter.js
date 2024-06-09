@@ -19,14 +19,16 @@ class EncounterScene extends Phaser.Scene {
 
         this.dialogModal.init();
         
+        const playerName = this.game.playerName;
+
         let list = [
             "ASHARRA: Who goes there?", 
-            "ATELLE: Hello! I'm looking to go to The Town of Vrillage.", 
+            `${playerName} : Hello! I'm looking to go to The Town of Vrillage.`, 
             "ASHARRA: Is that so? I'm afraid you don't even belong there. The Town of Vrillage is my home.", 
-            "ATELLE: Please let me cross, I need to get back home.",
+            `${playerName}: Please let me cross, I need to get back home.`,
             "ASHARRA: I don't think so. Beat me in a fight and I'll let you through.",
             "KIRIN: Go find a weapon to fight them!",
-            "ATELLE: ...",
+            `${playerName}: ...`,
         ]
         let i = 0;
 

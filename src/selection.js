@@ -1,12 +1,9 @@
-class SelectionScene extends Phaser.Scene
-{
-    
-    constructor () {
+class SelectionScene extends Phaser.Scene {
+    constructor() {
         super({ key: 'SelectionScene' });
-        
     }
 
-    preload () {
+    preload() {
         this.load.image('dialogue_background', 'assets/images/dialogue_background.png');
         this.load.image('next_button', 'assets/menu/advance.png');
         this.load.spritesheet('atelle_idles', 'assets/sprites/atelle/idle_right.png', { frameWidth: 20, frameHeight: 34 });
@@ -20,38 +17,41 @@ class SelectionScene extends Phaser.Scene
         this.load.scenePlugin('DialogModalPlugin', 'src/dialog_plugin.js');
     }
 
-    create () {
-        this.add.image(600, 330, 'bg').setScale(5.45).setOrigin(.5, .5);
-        this.bg = this.add.image(600, 330, 'dialogue_background').setScale(2.35).setOrigin(.5, .5);
+    create() {
+        this.add.image(600, 330, 'bg').setScale(5.45).setOrigin(0.5, 0.5);
+        this.bg = this.add.image(600, 330, 'dialogue_background').setScale(2.35).setOrigin(0.5, 0.5);
         this.bg.visible = true;
 
         this.dialogModal.init();
-        
+
         let list = [
-            "Welcome to Sonapath!", 
-            "Before your adventure, please select your starting character.", 
+            "Welcome to Sonapath!",
+            "Please input your name to begin your adventure, then press \"enter\".",
+            "Before your adventure, please select your starting character.",
             "Some characters are locked, but as you advance in your journey, you'll be able to unlock them.",
-            "Select your player to begin!", 
-        ]
+            "Select your player to begin!",
+        ];
         let i = 0;
-        
+        this.nameEntered = false;
+
         let next_button = this.add.image(1120, 580, 'next_button').setScale(2);
         next_button.visible = true;
         next_button.setInteractive();
         next_button.on('pointerover', () => next_button.setTint(0xcccccc));
         next_button.on('pointerout', () => next_button.setTint(0xffffff));
         next_button.on('pointerdown', () => {
-            if (i == 1) {
+            if (i === 1 && !this.nameEntered) {
                 this.dialogModal.setText(list[i], true);
-                i += 1;
-            }
-            else if (i == 4) {
-                // this.scene.start('GreetingScene');
-                next_button.visible = true;
-            }
-            else {
+                this.showNameInput();
+            } else if (i < list.length - 1) {
+                if (i === 1 && this.nameEntered) {
+                    i++;
+                }
                 this.dialogModal.setText(list[i], true);
-                i += 1;
+                i++;
+            } else if (i === list.length - 1 && this.nameEntered) {
+                // Proceed to the next scene
+                this.scene.start('OpeningScene');
             }
         });
 
@@ -64,9 +64,13 @@ class SelectionScene extends Phaser.Scene
         let unlock = this.physics.add.sprite(725, 360, 'atelle_idles').setScale(8);
         unlock.setInteractive();
         unlock.on('pointerdown', () => {
-            this.scene.start('OpeningScene')
+            if (this.nameEntered) {
+                this.scene.start('OpeningScene');
+            } else {
+                console.warn("Please enter your name first.");
+            }
         });
-        
+
         unlock.on('pointerover', () => unlock.setTint(0xcccccc));
         unlock.on('pointerout', () => unlock.setTint(0xffffff));
 
@@ -75,7 +79,7 @@ class SelectionScene extends Phaser.Scene
         vol.setScale(1.5);
         vol.setInteractive();
         vol.on('pointerdown', () => {
-            if(music.isPlaying) {
+            if (music.isPlaying) {
                 vol.setTexture('sound_off');
                 music.pause();
             } else {
@@ -86,9 +90,39 @@ class SelectionScene extends Phaser.Scene
         vol.on('pointerover', () => vol.setTint(0xcccccc));
         vol.on('pointerout', () => vol.setTint(0xffffff));
     }
-    update () {
+
+    showNameInput() {
+        const nameInput = document.getElementById('nameInput');
+
+        nameInput.style.display = 'block';
+        nameInput.focus();
+        nameInput.addEventListener('keydown', this.handleNameInput);
+    }
+
+    handleNameInput = (event) => {
+        if (event.key === 'Enter') {
+            const nameInput = document.getElementById('nameInput');
+            const playerName = nameInput.value.trim();
+
+            nameInput.style.display = 'none';
+            nameInput.removeEventListener('keydown', this.handleNameInput);
+            this.savePlayerName(playerName);
+        }
+    }
+
+    savePlayerName(name) {
+        console.log(`Player name: ${name}`);
+        this.playerName = name; // Save the player name
+        this.nameEntered = true; // Mark that the name has been entered
+
+        // Store the player name in the Phaser game instance
+        this.game.playerName = name;
+        this.dialogModal.setText("Before your adventure, please select your starting character.", true);
+    }
+
+    update() {
 
     }
 }
 
-export default SelectionScene
+export default SelectionScene;

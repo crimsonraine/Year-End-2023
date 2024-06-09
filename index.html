@@ -13,14 +13,38 @@
 
     <link rel="preload" as="font" href="assets/fonts/PressStart2P-Regular.ttf" type="font/ttf"/>
     <link href="stylesheets/index.css" type="text/css" rel="stylesheet">
+
+    <style>
+        #nameInput {
+            position: absolute;
+            top: 50%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            width: 400px; /* Set width to make it large */
+            height: 100x; /* Set height */
+            font-family: 'Press Start 2P', cursive;
+            font-size: 50px;
+            color: #3b2726;
+            background-color: #907058;
+            border: 2px solid #5f3b39;
+            padding: 10px;
+            outline: none;
+            text-align: center;
+            display: none;
+            z-index: 1000;
+            opacity: 0.9;
+        }
+
+        #nameInput::placeholder {
+            color: #3b2726;
+        }
+    </style>
 </head>
 <body>
     <div style="font-family: Press-Start-2P; position: absolute; left:-1000px; visibility:hidden;">.</div>
+    <input type="text" id="nameInput" placeholder="Enter your name...">
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser-arcade-physics.min.js"></script>
-    <!-- <script src="//cdn.jsdelivr.net/npm/phaser@3.6.0/dist/phaser.min.js"></script> -->
-
     <script src="src/phaser.js"></script>
     <script defer type = 'module' src = "src/main.js"></script>
-    <!-- <script src="practicescene.js"></script> -->
 </body>
 </html>

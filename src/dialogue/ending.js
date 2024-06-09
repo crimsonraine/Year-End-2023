@@ -35,11 +35,13 @@ class EndingScene extends Phaser.Scene {
 
         this.dialogModal.init();
         
+        const playerName = this.game.playerName;
+
         let list = [
             "KIRIN: Here we are, the gates of The Town of Vrillage. Hopefully, you can find the answers you are looking for.", 
-            "ATELLE: Thank you for all your help.", 
+            `${playerName}: Thank you for all your help.`, 
             "KIRIN: Anytime.",
-            "ATELLE: Well, here goes nothing."
+            `${playerName}: Well, here goes nothing.`
         ]
         let i = 0;
 
