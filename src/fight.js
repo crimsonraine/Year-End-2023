@@ -21,6 +21,8 @@ class FightScene extends Phaser.Scene {
     }
 
     create () {
+        const playerName = this.game.playerName;
+
         this.atelleFight = false;
         this.asharraFight = false;
 
@@ -31,11 +33,11 @@ class FightScene extends Phaser.Scene {
 
         /* DIALOGUE TEXTBOX */
         this.add.image(420, 566, 'textbox').setScale(3);
-        let dialogue = this.add.text(90, 550, 'What will ATELLE do?', {fontFamily: 'Press-Start-2P', fill : '#5f3b39'}).setScale(1.9);
+        let dialogue = this.add.text(90, 550, `What will ${playerName} do?`, {fontFamily: 'Press-Start-2P', fill : '#5f3b39'}).setScale(1.9);
 
         /* ATELLE TEXTBOX */
         this.add.image(220, 229, 'textbox').setScale(1.2);
-        this.add.text(90, 220, 'ATELLE', {fontFamily: 'Press-Start-2P', fill : '#6b5341'}).setScale(1.1);
+        this.add.text(90, 220, `${playerName}`, {fontFamily: 'Press-Start-2P', fill : '#6b5341'}).setScale(1.1);
         this.add.text(207, 220, 'HP:', {fontFamily: 'Press-Start-2P', fill : '#295b3e'}).setScale(1.1);
         let atelle_text = this.add.text(260, 222, atelle_hp + '/100', {fontFamily: 'Press-Start-2P', fill : '#295b3e'}).setScale(0.75);
 
@@ -48,7 +50,7 @@ class FightScene extends Phaser.Scene {
         function attack (damage, weapon) {
             asharra_hp -= damage; 
             asharra_text.setText(asharra_hp + "/100");
-            dialogue.setText("ATELLE uses " + weapon + "!");
+            dialogue.setText(`${playerName} uses ` + weapon + "!");
         }
 
         function asharra_attack () {
@@ -93,7 +95,7 @@ class FightScene extends Phaser.Scene {
                                 }
                                 else {
                                     this.asharraFight = false;
-                                    dialogue.setText("What will ATELLE do?");
+                                    dialogue.setText(`What will ${playerName} do?`);
                                     this.sword_button.setInteractive();
                                     this.rock_button.setInteractive();
                                     this.hammer_button.setInteractive();
@@ -138,7 +140,7 @@ class FightScene extends Phaser.Scene {
                                 }
                                 else {
                                     this.asharraFight = false;
-                                    dialogue.setText("What will ATELLE do?");
+                                    dialogue.setText(`What will ${playerName} do?`);
                                     this.sword_button.setInteractive();
                                     this.rock_button.setInteractive();
                                     this.hammer_button.setInteractive();
@@ -183,7 +185,7 @@ class FightScene extends Phaser.Scene {
                                 }
                                 else {
                                     this.asharraFight = false;
-                                    dialogue.setText("What will ATELLE do?");
+                                    dialogue.setText(`What will ${playerName} do?`);
                                     this.sword_button.setInteractive();
                                     this.rock_button.setInteractive();
                                     this.hammer_button.setInteractive();
