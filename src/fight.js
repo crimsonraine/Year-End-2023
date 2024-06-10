@@ -65,16 +65,28 @@ class FightScene extends Phaser.Scene {
         }
 
         this.graphics = this.add.graphics();
-        this.graphics.lineStyle(5, 0x5f3b39);
-        this.graphics.fillStyle(0x907058, 1);    
 
         /* SWORD ATTACK BUTTON */
-        this.graphics.strokeRect(820, 500, 160, 60);
-        this.graphics.fillRect(820, 501, 159, 59);
-        this.sword_button = this.add.text(845, 520, 'SWORD', {fontFamily: 'Press-Start-2P', fill : '#5f3b39'}).setScale(1.4);
+        if (this.hasSword) {
+            this.graphics.lineStyle(5, 0x5f3b39);
+            this.graphics.fillStyle(0x907058, 1);  
+            this.font_color = '#5f3b39';  
+            this.graphics.strokeRect(820, 500, 160, 60);
+            this.graphics.fillRect(820, 501, 159, 59);
+        }
+        else {
+            this.graphics.lineStyle(5, 0x787878);
+            this.graphics.fillStyle(0x8a8988, 1); 
+            this.font_color = '#787878';   
+            this.graphics.strokeRect(820, 500, 160, 60);
+            this.graphics.fillRect(820, 501, 159, 59);
+        }
+        this.sword_button = this.add.text(845, 520, 'SWORD', {fontFamily: 'Press-Start-2P', fill : this.font_color}).setScale(1.4);
         this.sword_button.setInteractive();
-        this.sword_button.on('pointerover', () => this.sword_button.setStyle({fill : '#ffffff'}));
-        this.sword_button.on('pointerout', () => this.sword_button.setStyle({fill : '#5f3b39'}));
+        if (this.hasSword) {
+            this.sword_button.on('pointerover', () => this.sword_button.setStyle({fill : '#ffffff'}));
+            this.sword_button.on('pointerout', () => this.sword_button.setStyle({fill : '#5f3b39'}));
+        }
         if (this.hasSword) {
             this.sword_button.on('pointerdown', () => {
                 this.sword_button.disableInteractive();
@@ -114,12 +126,26 @@ class FightScene extends Phaser.Scene {
         }
 
         /* ROCK ATTACK BUTTON */
-        this.graphics.strokeRect(990, 500, 160, 60);
-        this.graphics.fillRect(990, 501, 159, 59);
-        this.rock_button = this.add.text(1026, 520, 'ROCK', {fontFamily: 'Press-Start-2P', fill : '#5f3b39'}).setScale(1.4);
+        if (this.hasRock) {
+            this.graphics.lineStyle(5, 0x5f3b39);
+            this.graphics.fillStyle(0x907058, 1);  
+            this.font_color = '#5f3b39';  
+            this.graphics.strokeRect(990, 500, 160, 60);
+            this.graphics.fillRect(990, 501, 159, 59);
+        }
+        else {
+            this.graphics.lineStyle(5, 0x787878);
+            this.graphics.fillStyle(0x8a8988, 1); 
+            this.font_color = '#787878';   
+            this.graphics.strokeRect(990, 500, 160, 60);
+            this.graphics.fillRect(990, 501, 159, 59);
+        }
+        this.rock_button = this.add.text(1026, 520, 'ROCK', {fontFamily: 'Press-Start-2P', fill : this.font_color}).setScale(1.4);
         this.rock_button.setInteractive();
-        this.rock_button.on('pointerover', () => this.rock_button.setStyle({fill : '#ffffff'}));
-        this.rock_button.on('pointerout', () => this.rock_button.setStyle({fill : '#5f3b39'}));
+        if (this.hasRock) {
+            this.rock_button.on('pointerover', () => this.rock_button.setStyle({fill : '#ffffff'}));
+            this.rock_button.on('pointerout', () => this.rock_button.setStyle({fill : '#5f3b39'}));
+        }
         if (this.hasRock) {
             this.rock_button.on('pointerdown', () => {
                 this.sword_button.disableInteractive();
@@ -159,12 +185,26 @@ class FightScene extends Phaser.Scene {
         }
 
         /* HAMMER ATTACK BUTTON */
-        this.graphics.strokeRect(990, 570, 160, 60);
-        this.graphics.fillRect(990, 571, 159, 59);
-        this.hammer_button = this.add.text(835, 590, 'HAMMER', {fontFamily: 'Press-Start-2P', fill : '#5f3b39'}).setScale(1.4);
+        if (this.hasHammer) {
+            this.graphics.lineStyle(5, 0x5f3b39);
+            this.graphics.fillStyle(0x907058, 1);  
+            this.font_color = '#5f3b39';  
+            this.graphics.strokeRect(820, 570, 160, 60);
+        this.graphics.fillRect(820, 571, 159, 59);
+        }
+        else {
+            this.graphics.lineStyle(5, 0x787878);
+            this.graphics.fillStyle(0x8a8988, 1); 
+            this.font_color = '#787878';   
+            this.graphics.strokeRect(820, 570, 160, 60);
+            this.graphics.fillRect(820, 571, 159, 59);
+        }
+        this.hammer_button = this.add.text(835, 590, 'HAMMER', {fontFamily: 'Press-Start-2P', fill : this.font_color}).setScale(1.4);
         this.hammer_button.setInteractive();
-        this.hammer_button.on('pointerover', () => this.hammer_button.setStyle({fill : '#ffffff'}));
-        this.hammer_button.on('pointerout', () => this.hammer_button.setStyle({fill : '#5f3b39'}));
+        if (this.hasHammer) {
+            this.hammer_button.on('pointerover', () => this.hammer_button.setStyle({fill : '#ffffff'}));
+            this.hammer_button.on('pointerout', () => this.hammer_button.setStyle({fill : '#5f3b39'}));
+        }
         if (this.hasHammer) {
             this.hammer_button.on('pointerdown', () => {
                 this.sword_button.disableInteractive();
@@ -204,8 +244,10 @@ class FightScene extends Phaser.Scene {
         }
 
         /* RUN AWAY BUTTON */
-        this.graphics.strokeRect(820, 570, 160, 60);
-        this.graphics.fillRect(820, 571, 159, 59);
+        this.graphics.lineStyle(5, 0x5f3b39);
+        this.graphics.fillStyle(0x907058, 1);  
+        this.graphics.strokeRect(990, 570, 160, 60);
+        this.graphics.fillRect(990, 571, 159, 59);
         this.run_button = this.add.text(1036, 590, 'RUN', {fontFamily: 'Press-Start-2P', fill : '#5f3b39'}).setScale(1.4);
         this.run_button.setInteractive();
         this.run_button.on('pointerover', () => this.run_button.setStyle({fill : '#ffffff'}));
