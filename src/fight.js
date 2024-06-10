@@ -55,7 +55,7 @@ class FightScene extends Phaser.Scene {
         function attack (damage, weapon) {
             asharra_hp -= damage; 
             asharra_text.setText(asharra_hp + "/100");
-            dialogue.setText("ATELLE uses " + weapon + "!");
+            dialogue.setText(`${playerName} uses ` + weapon + "!");
         }
 
         function asharra_attack () {
