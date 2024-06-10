@@ -5,10 +5,11 @@ class SelectionScene extends Phaser.Scene {
 
     preload() {
         this.load.image('dialogue_background', 'assets/images/dialogue_background.png');
-        this.load.image('next_button', 'assets/menu/advance.png');
-        this.load.spritesheet('atelle_idles', 'assets/sprites/atelle/idle_right.png', { frameWidth: 20, frameHeight: 34 });
-        this.load.image('char', 'assets/sprites/placeholder.png');
-        this.load.image('chars', 'assets/sprites/placeholder2.png');
+        this.load.image('next_button', 'assets/menu/advance.png'); 
+
+        this.load.spritesheet('A_idle', 'assets/sprites/A/idle_right.png', { frameWidth: 22, frameHeight: 34 });
+        this.load.spritesheet('B_idle', 'assets/sprites/B/idle_right.png', { frameWidth: 22, frameHeight: 34 });
+
         this.load.image('advance', 'assets/menu/advance.png');
         this.load.image('sound_on', 'assets/menu/sound_on.png');
         this.load.image('sound_off', 'assets/menu/sound_off.png');
@@ -28,7 +29,6 @@ class SelectionScene extends Phaser.Scene {
             "Welcome to Sonapath!",
             "Please input your name to begin your adventure, then press \"enter\".",
             "Before your adventure, please select your starting character.",
-            "Some characters are locked, but as you advance in your journey, you'll be able to unlock them.",
             "Select your player to begin!",
         ];
         let i = 0;
@@ -59,20 +59,34 @@ class SelectionScene extends Phaser.Scene {
         music.setLoop(true);
         music.play();
 
-        this.add.image(1025, 360, 'char').setScale(5.5).setTint(0x9c9c9c);
-        this.add.image(890, 310, 'chars').setScale(5.5).setTint(0x9c9c9c);
-        let unlock = this.physics.add.sprite(725, 360, 'atelle_idles').setScale(8);
-        unlock.setInteractive();
-        unlock.on('pointerdown', () => {
+        // this.add.image(1025, 360, 'char').setScale(5.5).setTint(0x9c9c9c);
+        // this.add.image(890, 310, 'chars').setScale(5.5).setTint(0x9c9c9c);
+
+        let player_A = this.physics.add.sprite(780, 360, 'A_idle').setScale(8);
+        player_A.setInteractive();
+        player_A.on('pointerdown', () => {
             if (this.nameEntered) {
-                this.scene.start('OpeningScene');
+                this.scene.start('OpeningScene', {character : 'A'});
             } else {
                 console.warn("Please enter your name first.");
             }
         });
 
-        unlock.on('pointerover', () => unlock.setTint(0xcccccc));
-        unlock.on('pointerout', () => unlock.setTint(0xffffff));
+        player_A.on('pointerover', () => player_A.setTint(0xcccccc));
+        player_A.on('pointerout', () => player_A.setTint(0xffffff));
+
+        let player_B = this.physics.add.sprite(945, 377, 'B_idle').setScale(8);
+        player_B.setInteractive();
+        player_B.on('pointerdown', () => {
+            if (this.nameEntered) {
+                this.scene.start('OpeningScene', {character : 'B'});
+            } else {
+                console.warn("Please enter your name first.");
+            }
+        });        
+
+        player_B.on('pointerover', () => player_B.setTint(0xcccccc));
+        player_B.on('pointerout', () => player_B.setTint(0xffffff));
 
         let vol = this.add.image(1170, 30, 'sound_on');
         this.add.text(1140, 55, 'volume', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });

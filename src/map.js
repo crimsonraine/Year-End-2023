@@ -5,6 +5,7 @@ class MapScene extends Phaser.Scene {
 
     init (data) {
         this.startBeforeFight = data.startBeforeFight;
+        this.character = data.character;
     }
 
     preload () {
@@ -15,13 +16,17 @@ class MapScene extends Phaser.Scene {
         this.load.image('axe', 'assets/images/axe.png');
         this.load.image('guide', 'assets/images/direction_arrow.png');
 
-        // this.load.spritesheet('atelle_idle_back', 'assets/sprites/atelle/idle_back.png', { frameWidth: 48, frameHeight: 34 });
-        // this.load.spritesheet('atelle_idle_right', 'assets/sprites/atelle/idle_right.png', { frameWidth: 48, frameHeight: 34 });
-        this.load.spritesheet('atelle_idle', 'assets/sprites/atelle/idle.png', { frameWidth: 48, frameHeight: 34 });
-        this.load.spritesheet('atelle_walk_back', 'assets/sprites/atelle/walk_back.png', { frameWidth: 48, frameHeight: 34 });
-        this.load.spritesheet('atelle_walk_front', 'assets/sprites/atelle/walk_front.png', { frameWidth: 48, frameHeight: 34 });
-        this.load.spritesheet('atelle_walk_right', 'assets/sprites/atelle/walk_right.png', { frameWidth: 48, frameHeight: 34 });
-        this.load.spritesheet('atelle_walk_left', 'assets/sprites/atelle/walk_left.png', { frameWidth: 48, frameHeight: 34 });
+        this.load.spritesheet('player_A_idle', 'assets/sprites/A/idle.png', { frameWidth: 48, frameHeight: 34 });
+        this.load.spritesheet('player_A_walk_back', 'assets/sprites/A/walk_back.png', { frameWidth: 48, frameHeight: 34 });
+        this.load.spritesheet('player_A_walk_front', 'assets/sprites/A/walk_front.png', { frameWidth: 48, frameHeight: 34 });
+        this.load.spritesheet('player_A_walk_right', 'assets/sprites/A/walk_right.png', { frameWidth: 48, frameHeight: 34 });
+        this.load.spritesheet('player_A_walk_left', 'assets/sprites/A/walk_left.png', { frameWidth: 48, frameHeight: 34 });
+
+        this.load.spritesheet('player_B_idle', 'assets/sprites/B/idle_right.png', { frameWidth: 32, frameHeight: 34 });
+        this.load.spritesheet('player_B_walk_back', 'assets/sprites/B/walk_back.png', { frameWidth: 32, frameHeight: 34 });
+        this.load.spritesheet('player_B_walk_front', 'assets/sprites/B/walk_front.png', { frameWidth: 32, frameHeight: 34 });
+        this.load.spritesheet('player_B_walk_right', 'assets/sprites/B/walk_right.png', { frameWidth: 32, frameHeight: 34 });
+        this.load.spritesheet('player_B_walk_left', 'assets/sprites/B/walk_left.png', { frameWidth: 32, frameHeight: 34 });
 
         this.load.spritesheet('kirin_idle_back', 'assets/sprites/kirin/idle_back.png', { frameWidth: 80, frameHeight: 67 });
         this.load.spritesheet('kirin_idle_left', 'assets/sprites/kirin/idle_left.png', { frameWidth: 80, frameHeight: 67 });
@@ -172,36 +177,71 @@ class MapScene extends Phaser.Scene {
         }
 
         this.anims.create({
-            key: 'atelle_idle',
-            frames: this.anims.generateFrameNumbers('atelle_idle', { start: 0, end: 5 }),
+            key: 'player_A_idle',
+            frames: this.anims.generateFrameNumbers('player_A_idle', { start: 0, end: 5 }),
             frameRate: 7,
             repeat: -1
         });
 
         this.anims.create({
-            key: 'atelle_walk_front',
-            frames: this.anims.generateFrameNumbers('atelle_walk_front', { start: 0, end: 5 }),
+            key: 'player_A_walk_front',
+            frames: this.anims.generateFrameNumbers('player_A_walk_front', { start: 0, end: 5 }),
             frameRate: 7,
             repeat: -1
         });
 
         this.anims.create({
-            key: 'atelle_walk_back',
-            frames: this.anims.generateFrameNumbers('atelle_walk_back', { start: 0, end: 5 }),
+            key: 'player_A_walk_back',
+            frames: this.anims.generateFrameNumbers('player_A_walk_back', { start: 0, end: 5 }),
             frameRate: 7,
             repeat: -1
         });
 
         this.anims.create({
-            key: 'atelle_walk_right',
-            frames: this.anims.generateFrameNumbers('atelle_walk_right', { start: 0, end: 5 }),
+            key: 'player_A_walk_right',
+            frames: this.anims.generateFrameNumbers('player_A_walk_right', { start: 0, end: 5 }),
             frameRate: 7,
             repeat: -1
         });
 
         this.anims.create({
-            key: 'atelle_walk_left',
-            frames: this.anims.generateFrameNumbers('atelle_walk_left', { start: 0, end: 5 }),
+            key: 'player_A_walk_left',
+            frames: this.anims.generateFrameNumbers('player_A_walk_left', { start: 0, end: 5 }),
+            frameRate: 7,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'player_B_idle',
+            frames: this.anims.generateFrameNumbers('player_B_idle', { start: 0, end: 5 }),
+            frameRate: 7,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'player_B_walk_front',
+            frames: this.anims.generateFrameNumbers('player_B_walk_front', { start: 0, end: 5 }),
+            frameRate: 7,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'player_B_walk_back',
+            frames: this.anims.generateFrameNumbers('player_B_walk_back', { start: 0, end: 5 }),
+            frameRate: 7,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'player_B_walk_right',
+            frames: this.anims.generateFrameNumbers('player_B_walk_right', { start: 0, end: 5 }),
+            frameRate: 7,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'player_B_walk_left',
+            frames: this.anims.generateFrameNumbers('player_B_walk_left', { start: 0, end: 5 }),
             frameRate: 7,
             repeat: -1
         });
@@ -241,7 +281,7 @@ class MapScene extends Phaser.Scene {
         this.kirin.setCollideWorldBounds(true);
         this.physics.add.collider(this.kirin, this.rectangles);
 
-        this.atelle = this.physics.add.sprite(583, 783, 'atelle_idle').setScale(1.7);
+        this.atelle = this.physics.add.sprite(583, 783, ('player_' + this.character + '_idle')).setScale(1.7);
         this.atelle.getBounds();
         this.atelle.setOffset(6, 10);
         this.atelle.body.setSize(this.atelle.width * 0.3, this.atelle.height * 0.5, false);
@@ -296,16 +336,16 @@ class MapScene extends Phaser.Scene {
 
         if (this.physics.overlap(this.atelle, this.asharra) && this.keyF.isDown) { 
             if (this.startBeforeFight) {
-                this.scene.start('BeforeFightScene', {hasRock : this.hasRock, hasHammer : this.hasHammer, hasSword : this.hasSword});
+                this.scene.start('BeforeFightScene', {character : this.character, hasRock : this.hasRock, hasHammer : this.hasHammer, hasSword : this.hasSword});
             }
             else {
-                this.scene.start('EncounterScene');
+                this.scene.start('EncounterScene', {character : this.character});
             }
         } 
 
         if (this.cursors.left.isDown || this.keyA.isDown) {
             this.atelle.body.setVelocityX(-225);
-            this.atelle.anims.play('atelle_walk_left', true);
+            this.atelle.anims.play(('player_' + this.character + '_walk_left'), true);
 
             this.kirin.body.setVelocityX(-175);
             this.kirin.anims.play('kirin_idle_left', true);
@@ -313,7 +353,7 @@ class MapScene extends Phaser.Scene {
     
         else if (this.cursors.right.isDown || this.keyD.isDown) {
             this.atelle.body.setVelocityX(225);
-            this.atelle.anims.play('atelle_walk_right', true);
+            this.atelle.anims.play(('player_' + this.character + '_walk_right'), true);
 
             this.kirin.body.setVelocityX(175);
             this.kirin.anims.play('kirin_idle_right', true);
@@ -321,7 +361,7 @@ class MapScene extends Phaser.Scene {
     
         else if (this.cursors.up.isDown || this.keyW.isDown) {
             this.atelle.body.setVelocityY(-225);
-            this.atelle.anims.play('atelle_walk_back', true);
+            this.atelle.anims.play(('player_' + this.character + '_walk_back'), true);
 
             this.kirin.body.setVelocityY(-175);
             this.kirin.anims.play('kirin_idle', true);
@@ -329,7 +369,7 @@ class MapScene extends Phaser.Scene {
     
         else if (this.cursors.down.isDown || this.keyS.isDown) {
             this.atelle.body.setVelocityY(225);
-            this.atelle.anims.play('atelle_walk_front', true);
+            this.atelle.anims.play(('player_' + this.character + '_walk_front'), true);
 
             this.kirin.body.setVelocityY(175);
             this.kirin.anims.play('kirin_idle', true);
@@ -341,7 +381,7 @@ class MapScene extends Phaser.Scene {
             this.kirin.body.setVelocityX(0);
             this.kirin.body.setVelocityY(0);
 
-            this.atelle.anims.play('atelle_idle', true);
+            this.atelle.anims.play(('player_' + this.character + '_idle'), true);
             this.kirin.anims.play('kirin_idle', true);
         }
 

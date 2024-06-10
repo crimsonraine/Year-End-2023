@@ -3,11 +3,16 @@ class EndingScene extends Phaser.Scene {
         super({ key: 'EndingScene' });
     }
 
+    init (data) {
+        this.character = data.character;
+    }
+
     preload () {
         this.load.image('dialogue_background', 'assets/images/dialogue_background.png');
         this.load.image('next_button', 'assets/menu/advance.png');
 
-        this.load.spritesheet('atelle_idle', 'assets/sprites/atelle/idle_right.png', { frameWidth: 48, frameHeight: 34 });
+        this.load.spritesheet('player_A_idle', 'assets/sprites/A/idle_right.png', { frameWidth: 48, frameHeight: 34 });
+        this.load.spritesheet('player_B_idle', 'assets/sprites/B/idle_right.png', { frameWidth: 32, frameHeight: 34 });
         this.load.spritesheet('kirin_idle', 'assets/sprites/kirin/idle.png', { frameWidth: 80, frameHeight: 67 });
 
         this.load.scenePlugin('DialogModalPlugin', 'src/dialog_plugin.js');
@@ -17,8 +22,15 @@ class EndingScene extends Phaser.Scene {
         this.add.image(600, 330, 'dialogue_background').setScale(2.35).setOrigin(.5, .5);
 
         this.anims.create({
-            key: 'atelle_idle',
-            frames: this.anims.generateFrameNumbers('atelle_idle', { start: 0, end: 5 }),
+            key: 'player_A_idle',
+            frames: this.anims.generateFrameNumbers('player_A_idle', { start: 0, end: 5 }),
+            frameRate: 7,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'player_B_idle',
+            frames: this.anims.generateFrameNumbers('player_B_idle', { start: 0, end: 5 }),
             frameRate: 7,
             repeat: -1
         });
@@ -30,7 +42,13 @@ class EndingScene extends Phaser.Scene {
             repeat: -1
         });
 
-        this.atelle = this.physics.add.sprite(850, 355, 'atelle_idle').setScale(8);
+        if (this.character == 'A') {
+            this.atelle = this.physics.add.sprite(850, 355, ('player_' + this.character + '_idle')).setScale(8);
+        }
+        else {
+            this.atelle = this.physics.add.sprite(800, 355, ('player_' + this.character + '_idle')).setScale(8);
+        }
+        
         this.kirin = this.physics.add.sprite(1030, 310, 'kirin_idle').setScale(3.7);
 
         this.dialogModal.init();
@@ -66,7 +84,7 @@ class EndingScene extends Phaser.Scene {
     }
 
     update () {
-        this.atelle.anims.play('atelle_idle', true);
+        this.atelle.anims.play(('player_' + this.character + '_idle'), true);
         this.kirin.anims.play('kirin_idle', true);
     }
 }

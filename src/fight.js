@@ -4,6 +4,7 @@ class FightScene extends Phaser.Scene {
     }
 
     init (data) {
+        this.character = data.character;
         this.hasRock = data.hasRock;
         this.hasHammer = data.hasHammer;
         this.hasSword = data.hasSword;
@@ -13,14 +14,20 @@ class FightScene extends Phaser.Scene {
         this.load.image('battle_background', 'assets/images/battle_background1.png');
         this.load.image('textbox', 'assets/images/textbox.png');
 
-        this.load.spritesheet('atelle_idle', 'assets/sprites/atelle/idle_right.png', { frameWidth: 48, frameHeight: 34 });
-        this.load.spritesheet('atelle_fight', 'assets/sprites/atelle/fight_right.png', { frameWidth: 45, frameHeight: 34 });
+
+        this.load.spritesheet('player_A_idle', 'assets/sprites/A/idle_right.png', { frameWidth: 48, frameHeight: 34 });
+        this.load.spritesheet('player_A_fight', 'assets/sprites/A/fight_right.png', { frameWidth: 45, frameHeight: 34 });
+
+        this.load.spritesheet('player_B_idle', 'assets/sprites/B/idle_right.png', { frameWidth: 32, frameHeight: 34 });
+        this.load.spritesheet('player_B_fight', 'assets/sprites/B/fight_right.png', { frameWidth: 31, frameHeight: 34 });
 
         this.load.spritesheet('asharra_idle', 'assets/sprites/asharra/idle_left.png', { frameWidth: 64, frameHeight: 45});
         this.load.spritesheet('asharra_fight', 'assets/sprites/asharra/fight_left.png', { frameWidth: 64, frameHeight: 43})
     }
 
     create () {
+        const playerName = this.game.playerName;
+
         this.atelleFight = false;
         this.asharraFight = false;
 
@@ -31,11 +38,11 @@ class FightScene extends Phaser.Scene {
 
         /* DIALOGUE TEXTBOX */
         this.add.image(420, 566, 'textbox').setScale(3);
-        let dialogue = this.add.text(90, 550, 'What will ATELLE do?', {fontFamily: 'Press-Start-2P', fill : '#5f3b39'}).setScale(1.9);
+        let dialogue = this.add.text(90, 550, `What will ${playerName} do?`, {fontFamily: 'Press-Start-2P', fill : '#5f3b39'}).setScale(1.9);
 
         /* ATELLE TEXTBOX */
         this.add.image(220, 229, 'textbox').setScale(1.2);
-        this.add.text(90, 220, 'ATELLE', {fontFamily: 'Press-Start-2P', fill : '#6b5341'}).setScale(1.1);
+        this.add.text(90, 220, playerName, {fontFamily: 'Press-Start-2P', fill : '#6b5341'}).setScale(1.1);
         this.add.text(207, 220, 'HP:', {fontFamily: 'Press-Start-2P', fill : '#295b3e'}).setScale(1.1);
         let atelle_text = this.add.text(260, 222, atelle_hp + '/100', {fontFamily: 'Press-Start-2P', fill : '#295b3e'}).setScale(0.75);
 
@@ -86,14 +93,14 @@ class FightScene extends Phaser.Scene {
                             delay : 2000,
                             callback : () => {
                                 if (asharra_hp <= 0) {
-                                    this.scene.start('WonFightScene');
+                                    this.scene.start('WonFightScene', {character : this.character});
                                 }
                                 else if (atelle_hp <= 0) {
-                                    this.scene.start('LostFightScene');
+                                    this.scene.start('LostFightScene', {character : this.character});
                                 }
                                 else {
                                     this.asharraFight = false;
-                                    dialogue.setText("What will ATELLE do?");
+                                    dialogue.setText(`What will ${playerName} do?`);
                                     this.sword_button.setInteractive();
                                     this.rock_button.setInteractive();
                                     this.hammer_button.setInteractive();
@@ -131,14 +138,14 @@ class FightScene extends Phaser.Scene {
                             delay : 2000,
                             callback : () => {
                                 if (asharra_hp <= 0) {
-                                    this.scene.start('WonFightScene');
+                                    this.scene.start('WonFightScene', {character : this.character});
                                 }
                                 else if (atelle_hp <= 0) {
-                                    this.scene.start('LostFightScene');
+                                    this.scene.start('LostFightScene', {character : this.character});
                                 }
                                 else {
                                     this.asharraFight = false;
-                                    dialogue.setText("What will ATELLE do?");
+                                    dialogue.setText(`What will ${playerName} do?`);
                                     this.sword_button.setInteractive();
                                     this.rock_button.setInteractive();
                                     this.hammer_button.setInteractive();
@@ -176,14 +183,14 @@ class FightScene extends Phaser.Scene {
                             delay : 2000,
                             callback : () => {
                                 if (asharra_hp <= 0) {
-                                    this.scene.start('WonFightScene');
+                                    this.scene.start('WonFightScene', {character : this.character});
                                 }
                                 else if (atelle_hp <= 0) {
-                                    this.scene.start('LostFightScene');
+                                    this.scene.start('LostFightScene', {character : this.character});
                                 }
                                 else {
                                     this.asharraFight = false;
-                                    dialogue.setText("What will ATELLE do?");
+                                    dialogue.setText(`What will ${playerName} do?`);
                                     this.sword_button.setInteractive();
                                     this.rock_button.setInteractive();
                                     this.hammer_button.setInteractive();
@@ -203,18 +210,32 @@ class FightScene extends Phaser.Scene {
         this.run_button.setInteractive();
         this.run_button.on('pointerover', () => this.run_button.setStyle({fill : '#ffffff'}));
         this.run_button.on('pointerout', () => this.run_button.setStyle({fill : '#5f3b39'}));
-        this.run_button.on('pointerdown', () => this.scene.start('LostFightScene'));
+        this.run_button.on('pointerdown', () => this.scene.start('LostFightScene', {character : this.character}));
 
         this.anims.create({
-            key: 'atelle_idle',
-            frames: this.anims.generateFrameNumbers('atelle_idle', { start: 0, end: 5 }),
-            frameRate: 10,
+            key: 'player_A_idle',
+            frames: this.anims.generateFrameNumbers('player_A_idle', { start: 0, end: 5 }),
+            frameRate: 7,
             repeat: -1
         });
 
         this.anims.create({
-            key: 'atelle_fight',
-            frames: this.anims.generateFrameNumbers('atelle_fight', { start: 0, end: 5 }),
+            key: 'player_A_fight',
+            frames: this.anims.generateFrameNumbers('player_A_fight', { start: 0, end: 5 }),
+            frameRate: 7,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'player_B_idle',
+            frames: this.anims.generateFrameNumbers('player_B_idle', { start: 0, end: 5 }),
+            frameRate: 7,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'player_B_fight',
+            frames: this.anims.generateFrameNumbers('player_B_fight', { start: 0, end: 5 }),
             frameRate: 7,
             repeat: -1
         });
@@ -233,16 +254,16 @@ class FightScene extends Phaser.Scene {
             repeat: -1
         });
 
-        this.atelle = this.physics.add.sprite(425, 395, 'atelle_idle').setScale(8);
+        this.atelle = this.physics.add.sprite(425, 395, ('player_' + this.character + '_idle')).setScale(8);
         this.asharra = this.physics.add.sprite(880, 260, 'asharra_idle').setScale(8);
     }
 
     update () {
         if (this.atelleFight) {
-            this.atelle.anims.play('atelle_fight', true)
+            this.atelle.anims.play(('player_' + this.character + '_fight'), true)
         }
         else {
-            this.atelle.anims.play('atelle_idle', true);
+            this.atelle.anims.play(('player_' + this.character + '_idle'), true);
         }
 
         if (this.asharraFight) {

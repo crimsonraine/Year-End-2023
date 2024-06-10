@@ -3,17 +3,16 @@ class LostFightScene extends Phaser.Scene {
         super({ key: 'LostFightScene' });
     }
 
-    // init (data) {
-    //     this.hasRock = data.hasRock;
-    //     this.hasHammer = data.hasHammer;
-    //     this.hasSword = data.hasSword;
-    // }
+    init (data) {
+        this.character = data.character;
+    }
 
     preload () {
         this.load.image('dialogue_background', 'assets/images/dialogue_background.png');
         this.load.image('next_button', 'assets/menu/advance.png');
 
-        this.load.spritesheet('atelle_idle', 'assets/sprites/atelle/idle_right.png', { frameWidth: 48, frameHeight: 34 });
+        this.load.spritesheet('player_A_idle', 'assets/sprites/A/idle_right.png', { frameWidth: 48, frameHeight: 34 });
+        this.load.spritesheet('player_B_idle', 'assets/sprites/B/idle_right.png', { frameWidth: 32, frameHeight: 34 });
         this.load.spritesheet('asharra_idle', 'assets/sprites/asharra/idle_left.png', { frameWidth: 64, frameHeight: 45});
         this.load.spritesheet('kirin_idle_right', 'assets/sprites/kirin/idle_right.png', { frameWidth: 80, frameHeight: 67 });
 
@@ -36,7 +35,7 @@ class LostFightScene extends Phaser.Scene {
         next_button.on('pointerout', () => next_button.setTint(0xffffff));
         next_button.on('pointerdown', () => {
             if (i == 1) {
-                this.scene.start('FightScene');
+                this.scene.start('FightScene', {character : this.character});
             }
             else {
                 this.dialogModal.setText(list[i], true);
@@ -45,8 +44,15 @@ class LostFightScene extends Phaser.Scene {
         });
 
         this.anims.create({
-            key: 'atelle_idle',
-            frames: this.anims.generateFrameNumbers('atelle_idle', { start: 0, end: 5 }),
+            key: 'player_A_idle',
+            frames: this.anims.generateFrameNumbers('player_A_idle', { start: 0, end: 5 }),
+            frameRate: 7,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'player_B_idle',
+            frames: this.anims.generateFrameNumbers('player_B_idle', { start: 0, end: 5 }),
             frameRate: 7,
             repeat: -1
         });
@@ -65,13 +71,19 @@ class LostFightScene extends Phaser.Scene {
             repeat: -1
         });
 
-        this.atelle = this.physics.add.sprite(910, 355, 'atelle_idle').setScale(8);
+        if (this.character == 'A') {
+            this.atelle = this.physics.add.sprite(910, 355, ('player_' + this.character + '_idle')).setScale(8);
+        }
+        else {
+            this.atelle = this.physics.add.sprite(840, 355, ('player_' + this.character + '_idle')).setScale(8);
+        }
+
         this.kirin = this.physics.add.sprite(750, 355, 'kirin_idle_right').setScale(3.7);
         this.asharra = this.physics.add.sprite(1150, 300, 'asharra_idle').setScale(8);
     }
 
     update () {
-        this.atelle.anims.play('atelle_idle', true);
+        this.atelle.anims.play(('player_' + this.character + '_idle'), true);
         this.kirin.anims.play('kirin_idle_right', true);
         this.asharra.anims.play('asharra_idle', true);
     }
