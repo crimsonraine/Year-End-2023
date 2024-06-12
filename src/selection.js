@@ -33,6 +33,7 @@ class SelectionScene extends Phaser.Scene {
         ];
         let i = 0;
         this.nameEntered = false;
+        this.charSelected = false;
 
         let next_button = this.add.image(1120, 580, 'next_button').setScale(2);
         next_button.visible = true;
@@ -43,7 +44,8 @@ class SelectionScene extends Phaser.Scene {
             if (i === 1 && !this.nameEntered) {
                 this.dialogModal.setText(list[i], true);
                 this.showNameInput();
-            } else if (i < list.length - 1) {
+            }
+            else if (i < list.length - 1) {
                 if (i === 1 && this.nameEntered) {
                     i++;
                 }

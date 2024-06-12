@@ -277,7 +277,7 @@ class MapScene extends Phaser.Scene {
         this.kirin = this.physics.add.sprite(610, 808, 'kirin_idle').setScale(0.8);
         this.kirin.getBounds();
         this.kirin.setOffset(6,13);
-        this.kirin.body.setSize(this.kirin.width * 0.4, this.kirin.height * 0.5, false);
+        this.kirin.body.setSize(this.kirin.width * 0.4, this.kirin.height * 0.75, false);
         this.kirin.setCollideWorldBounds(true);
         this.physics.add.collider(this.kirin, this.rectangles);
 
@@ -355,7 +355,7 @@ class MapScene extends Phaser.Scene {
             this.atelle.body.setVelocityX(225);
             this.atelle.anims.play(('player_' + this.character + '_walk_right'), true);
 
-            this.kirin.body.setVelocityX(175);
+            this.kirin.body.setVelocityX(200);
             this.kirin.anims.play('kirin_idle_right', true);
         }
     
@@ -363,7 +363,7 @@ class MapScene extends Phaser.Scene {
             this.atelle.body.setVelocityY(-225);
             this.atelle.anims.play(('player_' + this.character + '_walk_back'), true);
 
-            this.kirin.body.setVelocityY(-175);
+            this.kirin.body.setVelocityY(-200);
             this.kirin.anims.play('kirin_idle', true);
         }
     
@@ -371,7 +371,7 @@ class MapScene extends Phaser.Scene {
             this.atelle.body.setVelocityY(225);
             this.atelle.anims.play(('player_' + this.character + '_walk_front'), true);
 
-            this.kirin.body.setVelocityY(175);
+            this.kirin.body.setVelocityY(200);
             this.kirin.anims.play('kirin_idle', true);
         }
         else {
@@ -396,10 +396,11 @@ class MapScene extends Phaser.Scene {
                 if (Math.abs(this.atelle.body.y - this.kirin.body.y) < 50) this.kirin.anims.play('kirin_idle', true);
                 else this.kirin.anims.play('kirin_idle_left', true);
             }
-            this.physics.moveToObject(this.kirin, this.atelle, 100);
-        } else {
-            this.kirin.anims.play('kirin_idle', true);
+            this.physics.moveToObject(this.kirin, this.atelle, 200);
         }
+        // else {
+        //     this.kirin.anims.play('kirin_idle', true);
+        // }
                 
         let dx = this.destination[0] - this.arrow.x;
         let dy = this.destination[1] - this.arrow.y;
