@@ -42,6 +42,7 @@ class SelectionScene extends Phaser.Scene {
         next_button.on('pointerout', () => next_button.setTint(0xffffff));
         next_button.on('pointerdown', () => {
             if (i === 1 && !this.nameEntered) {
+                next_button.visible = false;
                 this.dialogModal.setText(list[i], true);
                 this.showNameInput();
             }
