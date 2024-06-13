@@ -38,7 +38,7 @@ class FightScene extends Phaser.Scene {
 
         /* DIALOGUE TEXTBOX */
         this.add.image(420, 566, 'textbox').setScale(3);
-        let dialogue = this.add.text(90, 550, `What will ${playerName} do?`, {fontFamily: 'Press-Start-2P', fill : '#5f3b39'}).setScale(1.9);
+        let dialogue = this.add.text(90, 550, `What will ${playerName} do?`, {fontFamily: 'Press-Start-2P', fill : '#5f3b39'}).setScale(1.7);
 
         /* ATELLE TEXTBOX */
         this.add.image(220, 229, 'textbox').setScale(1.2);
