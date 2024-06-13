@@ -312,26 +312,22 @@ class MapScene extends Phaser.Scene {
             }
         }
 
+        // INVENTORY MANAGEMENT BELOW
+        this.inventoryContainer = this.add.container(this.kirin.body.x, this.kirin.body.y);
 
-        if (this.startBeforeFight) {
-            // INVENTORY MANAGEMENT BELOW
-            this.inventoryContainer = this.add.container(this.kirin.body.x, this.kirin.body.y);
+        // INVENTORY UI
+        this.inventory_toggle_button = this.add.image(this.kirin.body.x, this.kirin.body.y, 'inventory_button'); // 1170, 30
+        // this.add.text(this.kirin.body.x - 10, this.kirin.body.y + 10, 'Inventory', { fontSize: '10px', fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
+        this.inventory_toggle_button.setInteractive();
+        this.inventory_toggle_button.on('pointerdown', () => {
+            toggleInventory();
+        });
+        this.inventory_toggle_button.on('pointerover', () => inventory_toggle_button.setTint(0xcccccc));
+        this.inventory_toggle_button.on('pointerout', () => inventory_toggle_button.setTint(0xffffff));
+        this.inventoryContainer.add(this.inventory_toggle_button);
 
-            // INVENTORY UI
-            this.inventory_toggle_button = this.add.image(this.kirin.body.x, this.kirin.body.y, 'inventory_button'); // 1170, 30
-            // this.add.text(this.kirin.body.x - 10, this.kirin.body.y + 10, 'Inventory', { fontSize: '10px', fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
-            this.inventory_toggle_button.setInteractive();
-            this.inventory_toggle_button.on('pointerdown', () => {
-                toggleInventory();
-            });
-            this.inventory_toggle_button.on('pointerover', () => inventory_toggle_button.setTint(0xcccccc));
-            this.inventory_toggle_button.on('pointerout', () => inventory_toggle_button.setTint(0xffffff));
-            this.inventoryContainer.add(this.inventory_toggle_button);
-
-            this.inventoryBackground = this.add.rectangle(this.kirin.body.x, this.kirin.body.y, 50, 50, 0x000001, 0.5);
-            this.inventoryContainer.add(this.inventoryBackground);
-        }
-
+        this.inventoryBackground = this.add.rectangle(this.kirin.body.x, this.kirin.body.y, 50, 50, 0x000001, 0.5);
+        this.inventoryContainer.add(this.inventoryBackground);
     }
 
     toggleInventory() {
@@ -429,15 +425,26 @@ class MapScene extends Phaser.Scene {
             this.updateInventoryPosition();
 
             let item1 = this.add.text(0, 0, 'Inventory:', { fontSize: '14px', fill: '#fff' });
-            let item2 = this.add.text(0, 20, '?', { fontSize: '10px', fill: '#fff' });
+            let item2 = this.add.text(0, 20, `Coins: ${this.coins_collected}`, { fontSize: '10px', fill: '#fff' });
             let item3 = this.add.text(0, 30, '?', { fontSize: '10px', fill: '#fff' });
             let item4 = this.add.text(0, 40, '?', { fontSize: '10px', fill: '#fff' });
+            let item5 = this.add.text(0, 50, '?', { fontSize: '10px', fill: '#fff' });
 
-            if (this.hasRock) item2.setText('Rock');
-            if (this.hasHammer) item3.setText('Hammer');
-            if (this.hasSword) item4.setText('Sword');
+            if (this.hasRock) item3.setText('Rock');
+            if (this.hasHammer) item4.setText('Hammer');
+            if (this.hasSword) item5.setText('Sword');
 
-            this.inventoryContainer.add([item1, item2, item3, item4]);
+            this.inventoryContainer.add([item1, item2, item3, item4, item5]);
+            this.inventoryContainer.add(this.inventory_toggle_button);
+        }
+        else {
+            this.inventoryContainer.removeAll(true);
+            this.updateInventoryPosition();
+
+            let item1 = this.add.text(0, 0, 'Inventory:', { fontSize: '14px', fill: '#fff' });
+            let item2 = this.add.text(0, 20, `Coins: ${this.coins_collected}`, { fontSize: '10px', fill: '#fff' });
+
+            this.inventoryContainer.add([item1, item2]);
             this.inventoryContainer.add(this.inventory_toggle_button);
         }
         // let item5text = 'Coins:' + String.valueOf(this.coins_collected);
