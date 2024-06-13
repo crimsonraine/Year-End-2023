@@ -351,10 +351,10 @@ class MapScene extends Phaser.Scene {
 
         if (this.physics.overlap(this.atelle, this.asharra) && this.keyF.isDown) {
             if (this.startBeforeFight) {
-                this.scene.start('BeforeFightScene', { character: this.character, hasRock: this.hasRock, hasHammer: this.hasHammer, hasSword: this.hasSword });
+                this.scene.start('BeforeFightScene', {character: this.character, hasRock: this.hasRock, hasHammer: this.hasHammer, hasSword: this.hasSword});
             }
             else {
-                this.scene.start('EncounterScene', { character: this.character });
+                this.scene.start('EncounterScene', {character: this.character});
             }
         }
 

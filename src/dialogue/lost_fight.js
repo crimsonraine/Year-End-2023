@@ -5,6 +5,9 @@ class LostFightScene extends Phaser.Scene {
 
     init (data) {
         this.character = data.character;
+        this.hasRock = data.hasRock;
+        this.hasHammer = data.hasHammer;
+        this.hasSword = data.hasSword;
     }
 
     preload () {
@@ -35,7 +38,7 @@ class LostFightScene extends Phaser.Scene {
         next_button.on('pointerout', () => next_button.setTint(0xffffff));
         next_button.on('pointerdown', () => {
             if (i == 1) {
-                this.scene.start('FightScene', {character : this.character});
+                this.scene.start('FightScene', {character: this.character, hasRock: this.hasRock, hasHammer: this.hasHammer, hasSword: this.hasSword});
             }
             else {
                 this.dialogModal.setText(list[i], true);

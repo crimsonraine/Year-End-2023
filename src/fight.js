@@ -108,7 +108,7 @@ class FightScene extends Phaser.Scene {
                                     this.scene.start('WonFightScene', {character : this.character});
                                 }
                                 else if (atelle_hp <= 0) {
-                                    this.scene.start('LostFightScene', {character : this.character});
+                                    this.scene.start('LostFightScene', {character: this.character, hasRock: this.hasRock, hasHammer: this.hasHammer, hasSword: this.hasSword});
                                 }
                                 else {
                                     this.asharraFight = false;
@@ -167,7 +167,7 @@ class FightScene extends Phaser.Scene {
                                     this.scene.start('WonFightScene', {character : this.character});
                                 }
                                 else if (atelle_hp <= 0) {
-                                    this.scene.start('LostFightScene', {character : this.character});
+                                    this.scene.start('LostFightScene', {character: this.character, hasRock: this.hasRock, hasHammer: this.hasHammer, hasSword: this.hasSword});
                                 }
                                 else {
                                     this.asharraFight = false;
@@ -226,7 +226,7 @@ class FightScene extends Phaser.Scene {
                                     this.scene.start('WonFightScene', {character : this.character});
                                 }
                                 else if (atelle_hp <= 0) {
-                                    this.scene.start('LostFightScene', {character : this.character});
+                                    this.scene.start('LostFightScene', {character: this.character, hasRock: this.hasRock, hasHammer: this.hasHammer, hasSword: this.hasSword});
                                 }
                                 else {
                                     this.asharraFight = false;
@@ -252,7 +252,7 @@ class FightScene extends Phaser.Scene {
         this.run_button.setInteractive();
         this.run_button.on('pointerover', () => this.run_button.setStyle({fill : '#ffffff'}));
         this.run_button.on('pointerout', () => this.run_button.setStyle({fill : '#5f3b39'}));
-        this.run_button.on('pointerdown', () => this.scene.start('LostFightScene', {character : this.character}));
+        this.run_button.on('pointerdown', () => this.scene.start('LostFightScene', {character: this.character, hasRock: this.hasRock, hasHammer: this.hasHammer, hasSword: this.hasSword}));
 
         this.anims.create({
             key: 'player_A_idle',
