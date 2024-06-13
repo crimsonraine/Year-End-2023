@@ -1,16 +1,17 @@
 class MapScene extends Phaser.Scene {
-    constructor () {
-        super({key: 'MapScene'});
+    constructor() {
+        super({ key: 'MapScene' });
     }
 
-    init (data) {
+    init(data) {
         this.startBeforeFight = data.startBeforeFight;
         this.character = data.character;
     }
 
-    preload () {
+    preload() {
         this.load.image('char', 'assets/sprites/placeholder.png');
         this.load.image('map_background', 'assets/images/background2.jpg');
+        this.load.image('inventory_button', 'assets/menu/inventory.png');
         this.load.image('rock', 'assets/images/rock.png');
         this.load.image('sword', 'assets/images/sword.png');
         this.load.image('axe', 'assets/images/axe.png');
@@ -33,7 +34,7 @@ class MapScene extends Phaser.Scene {
         this.load.spritesheet('kirin_idle_right', 'assets/sprites/kirin/idle_right.png', { frameWidth: 80, frameHeight: 67 });
         this.load.spritesheet('kirin_idle', 'assets/sprites/kirin/idle.png', { frameWidth: 80, frameHeight: 67 });
 
-        this.load.spritesheet('asharra_idle', 'assets/sprites/asharra/idle_left.png', { frameWidth: 64, frameHeight: 45});
+        this.load.spritesheet('asharra_idle', 'assets/sprites/asharra/idle_left.png', { frameWidth: 64, frameHeight: 45 });
 
         this.load.spritesheet('coin', 'assets/images/coin.png', { frameWidth: 16, frameHeight: 16 });
 
@@ -41,21 +42,23 @@ class MapScene extends Phaser.Scene {
 
         this.moveCam = false;
     }
-    
-    create () {
+
+    create() {
         let music = this.sound.add('bg_music');
         music.setLoop(true);
         music.play();
 
-        this.destination = [600,20];
-        let coins_collected = 0;
+        this.frozen = false;
+
+        this.destination = [600, 20];
+        this.coins_collected = 0;
 
         this.place = this.physics.add.image(590, 670, 'place');
         this.place.getBounds();
         this.place.body.setSize(this.place.body.height - 19, this.place.body.width, true);
         this.place.setCollideWorldBounds(true);
 
-        this.physics.world.setBounds(0, 0, 590 *2 + 100, 530*2 + 55);
+        this.physics.world.setBounds(0, 0, 590 * 2 + 100, 530 * 2 + 55);
 
         this.add.image(600, 530, 'map_background').setScale(1.50).setOrigin(.5, .5);
 
@@ -63,21 +66,7 @@ class MapScene extends Phaser.Scene {
         this.arrow.setDepth(1);
 
         this.rectangles = this.physics.add.staticGroup();
-        //this.rectangles.add(this.add.rectangle(100, 100, 350, 470));
 
-        // this.add.rectangle(100, 100, 350, 470, 0xFFA701);
-        // this.add.rectangle(60, 500, 270, 600, 0xFFA701);
-        // this.add.rectangle(650, 490, 150, 80, 0xFFA701);
-        // this.add.rectangle(360, 490, 150, 80, 0xFFA701);
-        // this.add.rectangle(900, 610, 210, 80, 0xFFA701);
-        // this.add.rectangle(500, 700, 400, 80, 0xFFA701);
-        // this.add.rectangle(780, 300, 75, 150, 0xFFA701);
-        // this.add.rectangle(325, 376, 70, 70, 0xFFA701);
-        // this.add.rectangle(600, 376, 130, 70, 0xFFA701);
-        // this.add.rectangle(635, 415, 215, 90, 0xFFA701);
-        // this.add.rectangle(1068, 545, 73, 70, 0xFFA701);
-        // this.add.rectangle(1150, 380, 92, 60, 0xFFA701);
-        // this.add.rectangle(1110, 90, 92, 68, 0xFFA701);
         this.rectangles.add(this.add.rectangle(0, 0, 389, 2200));
         this.rectangles.add(this.add.rectangle(200, 0, 120, 107));
         this.rectangles.add(this.add.rectangle(200, 413, 120, 235));
@@ -85,7 +74,6 @@ class MapScene extends Phaser.Scene {
         this.rectangles.add(this.add.rectangle(700, 0, 600, 120));
         this.rectangles.add(this.add.rectangle(620, 0, 175, 400));
         this.rectangles.add(this.add.rectangle(1070, 90, 245, 190));
-        //this.rectangles.add(this.add.rectangle(1100, 300, 90, 95)); aousdhfoajsldfjlksjdflkjslk
         this.rectangles.add(this.add.rectangle(1150, 600, 100, 70));
         this.rectangles.add(this.add.rectangle(360, 690, 140, 80));
         this.rectangles.add(this.add.rectangle(650, 690, 140, 80));
@@ -110,7 +98,6 @@ class MapScene extends Phaser.Scene {
         this.rectangles.add(this.add.rectangle(1010, 575, 40, 20));
         this.rectangles.add(this.add.rectangle(920, 575, 40, 20));
         this.rectangles.add(this.add.rectangle(1090, 630, 20, 120));
-        //this.rectangles.add(this.add.rectangle(1020, 302, 360, 2)); aishdoifjaksjdiofaeosdfioa
         this.rectangles.add(this.add.rectangle(960, 302, 215, 2));
         this.rectangles.add(this.add.rectangle(1170, 302, 50, 2));
 
@@ -122,7 +109,7 @@ class MapScene extends Phaser.Scene {
         this.rectangles.add(this.add.rectangle(423, 532, 20, 35));
         this.rectangles.add(this.add.rectangle(350, 415, 20, 110));
         this.rectangles.add(this.add.rectangle(655, 415, 20, 110));
-        this.rectangles.add( this.add.rectangle(825, 330, 20, 50));
+        this.rectangles.add(this.add.rectangle(825, 330, 20, 50));
 
         this.anims.create({
             key: 'coin',
@@ -139,7 +126,7 @@ class MapScene extends Phaser.Scene {
 
         this.coins.children.iterate(function (child) {
             child.setScale(1.2);
-            child.setSize(child.body.width, child.body.height+2, true);
+            child.setSize(child.body.width, child.body.height + 2, true);
         });
 
         this.coins.create(865, 570, 'coin').setScale(1.2);
@@ -265,7 +252,7 @@ class MapScene extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('kirin_idle_right', { start: 0, end: 3 }),
             frameRate: 5,
             repeat: -1
-        }); 
+        });
 
         this.anims.create({
             key: 'asharra_idle',
@@ -276,7 +263,7 @@ class MapScene extends Phaser.Scene {
 
         this.kirin = this.physics.add.sprite(610, 808, 'kirin_idle').setScale(0.8);
         this.kirin.getBounds();
-        this.kirin.setOffset(6,13);
+        this.kirin.setOffset(6, 13);
         this.kirin.body.setSize(this.kirin.width * 0.4, this.kirin.height * 0.75, false);
         this.kirin.setCollideWorldBounds(true);
         this.physics.add.collider(this.kirin, this.rectangles);
@@ -294,7 +281,7 @@ class MapScene extends Phaser.Scene {
         this.asharra.getBounds();
         this.asharra.body.setSize(this.asharra.width * 1.8, this.asharra.height * 0.9, true);
 
-        this.cameras.main.setBounds(2, 0, 590 *2 + 15, 530*2 + 10);
+        this.cameras.main.setBounds(2, 0, 590 * 2 + 15, 530 * 2 + 10);
         this.cameras.main.startFollow(this.atelle, true, 0.05, 0.05)
         this.cameras.main.setZoom(1.5);
 
@@ -304,14 +291,15 @@ class MapScene extends Phaser.Scene {
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         this.keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
-    
-        function collectCoin (player, coin) {
-            coin.destroy(true); 
-            coins_collected++; 
+
+        function collectCoin(player, coin) {
+            coin.destroy(true);
+            this.coins_collected++;
         }
 
-        function collectWeapon (player, weapon) {
+        function collectWeapon(player, weapon) {
             weapon.destroy(true);
             if (weapon == this.rock) {
                 this.hasRock = true;
@@ -320,12 +308,39 @@ class MapScene extends Phaser.Scene {
                 this.hasHammer = true;
             }
             else if (weapon == this.sword) {
-                this.hasSword = true; 
-            }       
+                this.hasSword = true;
+            }
         }
+
+
+        if (this.startBeforeFight) {
+            // INVENTORY MANAGEMENT BELOW
+            this.inventoryContainer = this.add.container(this.kirin.body.x, this.kirin.body.y);
+
+            // INVENTORY UI
+            this.inventory_toggle_button = this.add.image(this.kirin.body.x, this.kirin.body.y, 'inventory_button'); // 1170, 30
+            // this.add.text(this.kirin.body.x - 10, this.kirin.body.y + 10, 'Inventory', { fontSize: '10px', fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
+            this.inventory_toggle_button.setInteractive();
+            this.inventory_toggle_button.on('pointerdown', () => {
+                toggleInventory();
+            });
+            this.inventory_toggle_button.on('pointerover', () => inventory_toggle_button.setTint(0xcccccc));
+            this.inventory_toggle_button.on('pointerout', () => inventory_toggle_button.setTint(0xffffff));
+            this.inventoryContainer.add(this.inventory_toggle_button);
+
+            this.inventoryBackground = this.add.rectangle(this.kirin.body.x, this.kirin.body.y, 50, 50, 0x000001, 0.5);
+            this.inventoryContainer.add(this.inventoryBackground);
+        }
+
     }
-    
-    update () {
+
+    toggleInventory() {
+        clearInventory();
+        this.inventoryContainer.setVisible(!this.inventoryContainer.visible);
+        this.frozen = !this.frozen;
+    }
+
+    update() {
         this.physics.collide(this.place, this.a);
 
         this.coins.children.iterate(function (child) {
@@ -334,14 +349,15 @@ class MapScene extends Phaser.Scene {
 
         this.asharra.anims.play('asharra_idle', true);
 
-        if (this.physics.overlap(this.atelle, this.asharra) && this.keyF.isDown) { 
+        if (this.physics.overlap(this.atelle, this.asharra) && this.keyF.isDown) {
             if (this.startBeforeFight) {
-                this.scene.start('BeforeFightScene', {character : this.character, hasRock : this.hasRock, hasHammer : this.hasHammer, hasSword : this.hasSword});
+                this.scene.start('BeforeFightScene', { character: this.character, hasRock: this.hasRock, hasHammer: this.hasHammer, hasSword: this.hasSword });
             }
             else {
-                this.scene.start('EncounterScene', {character : this.character});
+                this.scene.start('EncounterScene', { character: this.character });
             }
-        } 
+        }
+
 
         if (this.cursors.left.isDown || this.keyA.isDown) {
             this.atelle.body.setVelocityX(-225);
@@ -350,7 +366,6 @@ class MapScene extends Phaser.Scene {
             this.kirin.body.setVelocityX(-175);
             this.kirin.anims.play('kirin_idle_left', true);
         }
-    
         else if (this.cursors.right.isDown || this.keyD.isDown) {
             this.atelle.body.setVelocityX(225);
             this.atelle.anims.play(('player_' + this.character + '_walk_right'), true);
@@ -358,7 +373,6 @@ class MapScene extends Phaser.Scene {
             this.kirin.body.setVelocityX(200);
             this.kirin.anims.play('kirin_idle_right', true);
         }
-    
         else if (this.cursors.up.isDown || this.keyW.isDown) {
             this.atelle.body.setVelocityY(-225);
             this.atelle.anims.play(('player_' + this.character + '_walk_back'), true);
@@ -366,7 +380,6 @@ class MapScene extends Phaser.Scene {
             this.kirin.body.setVelocityY(-200);
             this.kirin.anims.play('kirin_idle', true);
         }
-    
         else if (this.cursors.down.isDown || this.keyS.isDown) {
             this.atelle.body.setVelocityY(225);
             this.atelle.anims.play(('player_' + this.character + '_walk_front'), true);
@@ -385,6 +398,7 @@ class MapScene extends Phaser.Scene {
             this.kirin.anims.play('kirin_idle', true);
         }
 
+
         if (Phaser.Math.Distance.Between(this.atelle.body.x, this.atelle.body.y, this.kirin.body.x, this.kirin.body.y) > 50) {
             // this.atelle.body.setVelocityX(0);
             // this.atelle.body.setVelocityY(0);
@@ -398,10 +412,8 @@ class MapScene extends Phaser.Scene {
             }
             this.physics.moveToObject(this.kirin, this.atelle, 200);
         }
-        // else {
-        //     this.kirin.anims.play('kirin_idle', true);
-        // }
-                
+
+        // GUIDE ARROW UPDATE
         let dx = this.destination[0] - this.arrow.x;
         let dy = this.destination[1] - this.arrow.y;
         let angle = Phaser.Math.Angle.Between(0, 0, dx, dy);
@@ -409,7 +421,64 @@ class MapScene extends Phaser.Scene {
 
         this.arrow.x = this.atelle.body.x + 13;
         this.arrow.y = this.atelle.body.y - 15;
+
+
+        if (this.startBeforeFight) {
+            // Inventory updating
+            this.inventoryContainer.removeAll(true);
+            this.updateInventoryPosition();
+
+            let item1 = this.add.text(0, 0, 'Inventory:', { fontSize: '14px', fill: '#fff' });
+            let item2 = this.add.text(0, 20, '?', { fontSize: '10px', fill: '#fff' });
+            let item3 = this.add.text(0, 30, '?', { fontSize: '10px', fill: '#fff' });
+            let item4 = this.add.text(0, 40, '?', { fontSize: '10px', fill: '#fff' });
+
+            if (this.hasRock) item2.setText('Rock');
+            if (this.hasHammer) item3.setText('Hammer');
+            if (this.hasSword) item4.setText('Sword');
+
+            this.inventoryContainer.add([item1, item2, item3, item4]);
+            this.inventoryContainer.add(this.inventory_toggle_button);
+        }
+        // let item5text = 'Coins:' + String.valueOf(this.coins_collected);
+        // let item5 = this.add.text(0, 50, item5text, { fontSize: '10px', fill: '#fff' });
+
+        // let item2 = this.add.text(0, 20, () => {
+        //     return this.hasRock ? 'Rock' : '?'
+        // }
+        //     , { fontSize: '10px', fill: '#fff' });
+        // let item3 = this.add.text(0, 20, () => {
+        //     return this.hasHammer ? 'Hammer' : '?'
+        // }
+        //     , { fontSize: '10px', fill: '#fff' });
+        // let item4 = this.add.text(0, 20, () => {
+        //     return this.hasSword ? 'Sword' : '?'
+        // }
+        //     , { fontSize: '10px', fill: '#fff' });
+        // let item5 = this.add.text(0, 20, () => {
+        //     return "Coins: " + coins_collected;
+        // }
+        //     , { fontSize: '10px', fill: '#fff' });
+        // let item3 = this.add.text(0, 30, 'Sword', { fontSize: '10px', fill: '#fff' });
+        // let item4 = this.add.text(0, 40, 'Hammer', { fontSize: '10px', fill: '#fff' });
+        // let item5 = this.add.text(0, 50, 'Coins:', { fontSize: '10px', fill: '#fff' });
     }
-} 
+
+    clearInventory() {
+        this.inventoryContainer.removeAll(true);
+    }
+
+    updateInventoryPosition() {
+        if (this.inventoryContainer.visible) {
+            let cameraX = this.cameras.main.scrollX + 885 - 5;
+            let cameraY = this.cameras.main.scrollY + 145;
+
+            this.inventoryContainer.setPosition(cameraX, cameraY);
+            this.inventoryBackground.setPosition(cameraX, cameraY);
+        }
+
+        this.inventory_toggle_button.setPosition(this.cameras.main.scrollX + 600 - 5, this.cameras.main.scrollY + 330);
+    }
+}
 
 export default MapScene
