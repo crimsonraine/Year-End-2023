@@ -3,6 +3,11 @@
   "lockfileVersion": 3,
   "requires": true,
   "packages": {
+    "": {
+      "dependencies": {
+        "phaser": "^3.60.0"
+      }
+    },
     "node_modules/eventemitter3": {
       "version": "5.0.1",
       "resolved": "https://registry.npmjs.org/eventemitter3/-/eventemitter3-5.0.1.tgz",
